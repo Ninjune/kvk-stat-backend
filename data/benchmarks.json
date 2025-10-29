@@ -1,0 +1,657 @@
+[
+    {
+        "benchmarkName": "Viscose Benchmarks",
+        "rankCalculation": "basic",
+        "abbreviation": "V",
+        "color": "#828DC7",
+        "spreadsheetURL": "https://docs.google.com/spreadsheets/d/1bFAlt6g_Gm8P9RBkcAoObpbIGFwVS5gXIdIK9B_YyZE",
+        "difficulties": [
+            {
+                "difficultyName": "Easier",
+                "kovaaksBenchmarkId": 686,
+                "sharecode": "KovaaKsRaidingMediumFaction",
+                "rankColors": {
+                    "Lemming": "#C5C3F2",
+                    "Hare": "#B2CBEA",
+                    "Ermine": "#BAF6FC",
+                    "Penguin": "#6B94DF",
+                    "Fox": "#5558AA",
+                    "Mammoth": "#6E3F98",
+                    "Orca": "#C080E4",
+                    "Seal": "#F5BDE8"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Control Tracking",
+                        "color": "#151547",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Arm",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Wrist",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Fingertip",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Blending",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Reactive Tracking",
+                        "color": "#151547",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Control",
+                                "scenarioCount": 2,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 2,
+                                "color": "#404074"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Flick Tech",
+                        "color": "#151547",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Stability",
+                                "scenarioCount": 2,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Micro",
+                                "scenarioCount": 2,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#404074"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Dynamic Clicking",
+                        "color": "#151547",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Precision",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            },
+                            {
+                                "subcategoryName": "Linear",
+                                "scenarioCount": 3,
+                                "color": "#404074"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Medium",
+                "kovaaksBenchmarkId": 687,
+                "sharecode": "KovaaKsPushingMauveWeaponlevel",
+                "rankColors": {
+                    "Cinnabar": "#A71112",
+                    "Vermillion": "#F85939",
+                    "Saffron": "#F1C338",
+                    "Celadon": "#9CFF91",
+                    "Cerulean": "#02A4D3",
+                    "Lavender": "#C2C2FF",
+                    "Indigo": "#5C3896",
+                    "Fuchsia": "#C74375"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Control Tracking",
+                        "color": "#434343",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Arm",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Wrist",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Fingertip",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Blending",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Reactive Tracking",
+                        "color": "#434343",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Control",
+                                "scenarioCount": 2,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 2,
+                                "color": "#666666"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Flick Tech",
+                        "color": "#434343",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Stability",
+                                "scenarioCount": 2,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Micro",
+                                "scenarioCount": 2,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#666666"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Dynamic Clicking",
+                        "color": "#434343",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Precision",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            },
+                            {
+                                "subcategoryName": "Linear",
+                                "scenarioCount": 3,
+                                "color": "#666666"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Hard",
+                "kovaaksBenchmarkId": 688,
+                "sharecode": "KovaaKsQuestingMaximumblueNightfall",
+                "rankColors": {
+                    "Wool": "#F1ECEB",
+                    "Linen": "#EED3CE",
+                    "Velvet": "#ECA1B0",
+                    "Chiffon": "#8FC7E7",
+                    "Satin": "#5CA9C6",
+                    "Silk": "#2E6F8A"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Control Tracking",
+                        "color": "#9ED3FF",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Arm",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Wrist",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Fingertip",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Blending",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Reactive Tracking",
+                        "color": "#9ED3FF",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Control",
+                                "scenarioCount": 2,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 2,
+                                "color": "#9EB3BD"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Flick Tech",
+                        "color": "#9ED3FF",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Stability",
+                                "scenarioCount": 2,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Micro",
+                                "scenarioCount": 2,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#9EB3BD"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Dynamic Clicking",
+                        "color": "#9ED3FF",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Precision",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            },
+                            {
+                                "subcategoryName": "Linear",
+                                "scenarioCount": 3,
+                                "color": "#9EB3BD"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "benchmarkName": "Voltaic S5",
+        "rankCalculation": "vt-energy",
+        "abbreviation": "VT",
+        "color": "#02A2DA",
+        "spreadsheetURL": "https://docs.google.com/spreadsheets/d/1RjVJi9AdWLXIOkKR8z6mhmRo_SNokJPxKtLXHWk12Z4",
+        "difficulties": [
+            {
+                "difficultyName": "Novice",
+                "kovaaksBenchmarkId": 459,
+                "sharecode": "KovaaKsBouncingSilverBinding",
+                "rankColors": {
+                    "Iron": "#999999",
+                    "Bronze": "#FF9900",
+                    "Silver": "#CBD9E6",
+                    "Gold": "#CAB148"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Clicking",
+                        "color": "#CC0000",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Dynamic",
+                                "scenarioCount": 2,
+                                "color": "#F1C232"
+                            },
+                            {
+                                "subcategoryName": "Static",
+                                "scenarioCount": 2,
+                                "color": "#E06666"
+                            },
+                            {
+                                "subcategoryName": "Linear",
+                                "scenarioCount": 2,
+                                "color": "#FF8A45"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Tracking",
+                        "color": "#1155CC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Precise",
+                                "scenarioCount": 2,
+                                "color": "#45818E"
+                            },
+                            {
+                                "subcategoryName": "Reactive",
+                                "scenarioCount": 2,
+                                "color": "#3C78D8"
+                            },
+                            {
+                                "subcategoryName": "Control",
+                                "scenarioCount": 2,
+                                "color": "#42A5FF"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Switching",
+                        "color": "#351C75",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#A64D79"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#674EA7"
+                            },
+                            {
+                                "subcategoryName": "Stability",
+                                "scenarioCount": 2,
+                                "color": "#B4A3FF"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Intermediate",
+                "kovaaksBenchmarkId": 458,
+                "sharecode": "KovaaKsBottingShinyDoor",
+                "rankColors": {
+                    "Platinum": "#2FCFC2",
+                    "Diamond": "#B9F2FF",
+                    "Jade": "#85FA85",
+                    "Master": "#EC44CA"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Clicking",
+                        "color": "#CC0000",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Dynamic",
+                                "scenarioCount": 2,
+                                "color": "#F1C232"
+                            },
+                            {
+                                "subcategoryName": "Static",
+                                "scenarioCount": 2,
+                                "color": "#E06666"
+                            },
+                            {
+                                "subcategoryName": "Linear",
+                                "scenarioCount": 2,
+                                "color": "#FF8A45"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Tracking",
+                        "color": "#1155CC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Precise",
+                                "scenarioCount": 2,
+                                "color": "#45818E"
+                            },
+                            {
+                                "subcategoryName": "Reactive",
+                                "scenarioCount": 2,
+                                "color": "#3C78D8"
+                            },
+                            {
+                                "subcategoryName": "Control",
+                                "scenarioCount": 2,
+                                "color": "#42A5FF"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Switching",
+                        "color": "#351C75",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#A64D79"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#674EA7"
+                            },
+                            {
+                                "subcategoryName": "Stability",
+                                "scenarioCount": 2,
+                                "color": "#B4A3FF"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Advanced",
+                "kovaaksBenchmarkId": 460,
+                "sharecode": "KovaaKsBobbingSepiaBuff",
+                "rankColors": {
+                    "Grandmaster": "#FFD700",
+                    "Nova": "#7900FF",
+                    "Astra": "#FF2262",
+                    "Celestial": "#24DDD8"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Clicking",
+                        "color": "#CC0000",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Dynamic",
+                                "scenarioCount": 2,
+                                "color": "#F1C232"
+                            },
+                            {
+                                "subcategoryName": "Static",
+                                "scenarioCount": 2,
+                                "color": "#E06666"
+                            },
+                            {
+                                "subcategoryName": "Linear",
+                                "scenarioCount": 2,
+                                "color": "#FF8A45"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Tracking",
+                        "color": "#1155CC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Precise",
+                                "scenarioCount": 2,
+                                "color": "#45818E"
+                            },
+                            {
+                                "subcategoryName": "Reactive",
+                                "scenarioCount": 2,
+                                "color": "#3C78D8"
+                            },
+                            {
+                                "subcategoryName": "Control",
+                                "scenarioCount": 2,
+                                "color": "#42A5FF"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Switching",
+                        "color": "#351C75",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#A64D79"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#674EA7"
+                            },
+                            {
+                                "subcategoryName": "Stability",
+                                "scenarioCount": 2,
+                                "color": "#B4A3FF"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Elite (Unofficial)",
+                "kovaaksBenchmarkId": 475,
+                "sharecode": "KovaaKsMainingIndigoPatrol",
+                "rankColors": {
+                    "Nova": "#7900FF",
+                    "Astra": "#FF2262",
+                    "Celestial": "#24DDD8",
+                    "Stellaris": "#979DDA",
+                    "Lunara": "#54418E",
+                    "Solara": "#FCFFA0"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Clicking",
+                        "color": "#CC0000",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Dynamic",
+                                "scenarioCount": 2,
+                                "color": "#F1C232"
+                            },
+                            {
+                                "subcategoryName": "Static",
+                                "scenarioCount": 2,
+                                "color": "#E06666"
+                            },
+                            {
+                                "subcategoryName": "Linear",
+                                "scenarioCount": 2,
+                                "color": "#FF8A45"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Tracking",
+                        "color": "#1155CC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Precise",
+                                "scenarioCount": 2,
+                                "color": "#45818E"
+                            },
+                            {
+                                "subcategoryName": "Reactive",
+                                "scenarioCount": 2,
+                                "color": "#3C78D8"
+                            },
+                            {
+                                "subcategoryName": "Control",
+                                "scenarioCount": 2,
+                                "color": "#42A5FF"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Switching",
+                        "color": "#351C75",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#A64D79"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#674EA7"
+                            },
+                            {
+                                "subcategoryName": "Stability",
+                                "scenarioCount": 2,
+                                "color": "#B4A3FF"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
