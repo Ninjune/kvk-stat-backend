@@ -1,9 +1,14 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from enum import Enum
 from datetime import datetime
 from typing import Any
 
 type link = str
+
+@dataclass
+class JSONSeriazableDataclass:
+    def to_json(self):
+        return asdict(self)
 
 @dataclass
 class Scenario:
@@ -108,7 +113,7 @@ class BenchmarkCategory:
 
 
 @dataclass
-class Benchmark:
+class Benchmark(JSONSeriazableDataclass):
     benchmark_progress: int
     overall_rank: int
     categories: dict[str, BenchmarkCategory]

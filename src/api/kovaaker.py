@@ -1,11 +1,12 @@
 # Modified https://github.com/moxycat/kovaaker (MIT license)
 import requests
 import itertools
+from typing import Any
 from base64 import b64encode
 from urllib.parse import quote
 
-from models import *
-from endpoints import *
+from api.models.kvk_models import *
+from api.endpoints import *
 
 class KovaakerClient:
     def __init__(self, username: str|None=None, password: str|None=None):
@@ -159,14 +160,49 @@ class KovaakerClient:
                    ) -> Benchmark:
         resp = self.session.get(BENCHMARKS % (benchmarkId, steamId, page, max))
         resp.raise_for_status()
-        data = resp.json()["data"]
+        data = resp.json()
+
+        ranks: list[BenchmarkRank] = []
+        for rank in data.get("ranks"):
+            ranks.append(BenchmarkRank(
+                            rank.get("icon"),
+                            rank.get("name"),
+                            rank.get("color"),
+                            rank.get("frame"),
+                            rank.get("description"),
+                            rank.get("playercard_large"),
+                            rank.get("playercard_small"),
+                            ))
+
+        categories: dict[str, BenchmarkCategory] = {}
+        for category in data.get("categories"): # keys as strings
+            scenarios: dict[str, BenchmarkScenario] = {}
+            categoryData = data.get("categories").get(category)
+
+            for scen in categoryData.get("scenarios"):
+                scenData = categoryData.get("scenarios").get(scen)
+
+                scenarios[scen] = BenchmarkScenario(
+                    scenData.get("score"),
+                    scenData.get("leaderboard_rank"),
+                    scenData.get("scenario_rank"),
+                    scenData.get("rank_maxes"),
+                    scenData.get("leaderboard_id")
+                    )
+
+            categories[category] = BenchmarkCategory(
+                            categoryData.get("benchmark_progress"),
+                            categoryData.get("category_rank"),
+                            categoryData.get("rank_maxes"),
+                            scenarios
+                            )
+
 
         result = Benchmark(
                 data.get("benchmark_progress"),
                 data.get("overall_rank"),
-                data.get("categories"),
-                data.get("ranks"),
+                categories,
+                ranks
                 )
+
         return result;
-
-

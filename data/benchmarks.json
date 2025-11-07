@@ -653,5 +653,217 @@
                 ]
             }
         ]
+    },
+    {
+        "benchmarkName": "Voltaic S4",
+        "rankCalculation": "vt-energy",
+        "abbreviation": "VT",
+        "color": "#02A2DA",
+        "spreadsheetURL": "https://docs.google.com/spreadsheets/d/1qUzF2KHcfs_FgsaDFRfGsLgHhoC1Md5bzMOUbsYzSjg",
+        "difficulties": [
+            {
+                "difficultyName": "Novice",
+                "kovaaksBenchmarkId": 237,
+                "sharecode": "KovaaKsClearingPetulantScoutrifle",
+                "rankColors": {
+                    "Iron": "#999999",
+                    "Bronze": "#FF9900",
+                    "Silver": "#CBD9E6",
+                    "Gold": "#CAB148"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Clicking",
+                        "color": "#CC0000",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Dynamic",
+                                "scenarioCount": 2,
+                                "color": "#F1C232"
+                            },
+                            {
+                                "subcategoryName": "Static",
+                                "scenarioCount": 2,
+                                "color": "#E06666"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Tracking",
+                        "color": "#1155CC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Precise",
+                                "scenarioCount": 2,
+                                "color": "#45818E"
+                            },
+                            {
+                                "subcategoryName": "Reactive",
+                                "scenarioCount": 2,
+                                "color": "#3C78D8"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Switching",
+                        "color": "#351C75",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#A64D79"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#674EA7"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Intermediate",
+                "kovaaksBenchmarkId": 235,
+                "sharecode": "KovaaKsCrackingPrismaticPull",
+                "rankColors": {
+                    "Platinum": "#2FCFC2",
+                    "Diamond": "#B9F2FF",
+                    "Jade": "#85FA85",
+                    "Master": "#EC44CA"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Clicking",
+                        "color": "#CC0000",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Dynamic",
+                                "scenarioCount": 2,
+                                "color": "#F1C232"
+                            },
+                            {
+                                "subcategoryName": "Static",
+                                "scenarioCount": 2,
+                                "color": "#E06666"
+                            },
+                            {
+                                "subcategoryName": "Strafe",
+                                "scenarioCount": 2,
+                                "color": "#FC74FC"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Tracking",
+                        "color": "#1155CC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Precise",
+                                "scenarioCount": 2,
+                                "color": "#45818E"
+                            },
+                            {
+                                "subcategoryName": "Reactive",
+                                "scenarioCount": 2,
+                                "color": "#3C78D8"
+                            },
+                            {
+                                "subcategoryName": "Strafe",
+                                "scenarioCount": 2,
+                                "color": "#FC74FC"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Switching",
+                        "color": "#351C75",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#A64D79"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#674EA7"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Advanced",
+                "kovaaksBenchmarkId": 253,
+                "sharecode": "KovaaKsCrankingPulledGauntlet",
+                "rankColors": {
+                    "Grandmaster": "#FFD700",
+                    "Nova": "#7900FF",
+                    "Astra": "#FF2262",
+                    "Celestial": "#24DDD8"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Clicking",
+                        "color": "#CC0000",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Dynamic",
+                                "scenarioCount": 2,
+                                "color": "#F1C232"
+                            },
+                            {
+                                "subcategoryName": "Static",
+                                "scenarioCount": 2,
+                                "color": "#E06666"
+                            },
+                            {
+                                "subcategoryName": "Strafe",
+                                "scenarioCount": 2,
+                                "color": "#FC74FC"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Tracking",
+                        "color": "#1155CC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Precise",
+                                "scenarioCount": 2,
+                                "color": "#45818E"
+                            },
+                            {
+                                "subcategoryName": "Reactive",
+                                "scenarioCount": 2,
+                                "color": "#3C78D8"
+                            },
+                            {
+                                "subcategoryName": "Strafe",
+                                "scenarioCount": 2,
+                                "color": "#FC74FC"
+                            }
+                        ]
+                    },
+                    {
+                        "categoryName": "Switching",
+                        "color": "#351C75",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Speed",
+                                "scenarioCount": 2,
+                                "color": "#A64D79"
+                            },
+                            {
+                                "subcategoryName": "Evasive",
+                                "scenarioCount": 2,
+                                "color": "#674EA7"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
