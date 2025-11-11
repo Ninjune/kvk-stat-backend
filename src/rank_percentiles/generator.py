@@ -99,14 +99,16 @@ class RankPercentileGenerator:
                     scenName: str = list(scenDict.keys())[currentScenInCategory]
                     scenData = scenDict[scenName]
                     self.percentileData.download_leaderboard_scores(fullData, subcategory.subcategoryName, scenName, scenData.leaderboard_id)
-                    tempSet = tempSet.union(set(id for id in \
-                        self.percentileData.scenSteamIdScoreMap.data \
+                    tempSet = tempSet.union(set(self.percentileData.scenSteamIdScoreMap.data \
                                 [fullData.evxl_benchmark.benchmarkName] \
                                 [fullData.difficulty.difficultyName]
                                 [subcategory.subcategoryName]
                                 [scenName].keys())
                         )
                     currentScenInCategory += 1
+                for id in tempSet:
+                    if(id == 76561198027494165):
+                        log("Found Viscose in tempSet!")
                 id_sets.append(tempSet)
 
         log("Created the list of the sets for the benchmark! Len=" + str(len(id_sets)) + " len[0]=" + str(len(id_sets[0])))
@@ -115,6 +117,8 @@ class RankPercentileGenerator:
         for i in range(1, len(id_sets)):
             allIdsInBenchmark = allIdsInBenchmark.intersection(id_sets[i])
         log("Created the set of all ids for the benchmark! Len=" + str(len(allIdsInBenchmark)))
+        if(76561198027494165 in allIdsInBenchmark):
+            log("Found Viscose in allIds!")
 
         log("Calculating the rank with rank calculation=" 
             + evxl_data.rankCalculation
@@ -131,11 +135,16 @@ class RankPercentileGenerator:
         # then count up the numbers of each rank in that map.
         rankCount: dict[str, int] = {}
         rankedInDifficulty: int = 0
-        for rank in fullData.difficulty.rankColors.keys():
-            rankCount[rank] = 0
-            rankedInDifficulty += 1
-            for rnk in rankMap.values():
-                if(rnk == rank):
+
+        for steamId in rankMap.keys():
+            if(rankMap[steamId] == "Silk"):
+                log(str(steamId))
+            if(steamId == 76561198027494165):
+                log(str(rankMap[steamId]))
+            for rank in fullData.difficulty.rankColors.keys():
+                rankCount.setdefault(rank, 0)
+                if(rankMap[steamId] == rank):
                     rankCount[rank] += 1
+                rankedInDifficulty += 1
 
         return rankCount
