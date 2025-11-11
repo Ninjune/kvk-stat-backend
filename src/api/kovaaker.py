@@ -40,46 +40,68 @@ class KovaakerClient:
 
     def scenario_leaderboard(self,
                              id: int,
+                             data_filter: list[str] = [], # get the data as a list with only the specific values
+                             data_dict: bool = False, # get the data as a dictionary (expected that len(data_filter) == 2)
                              start_page: int = 0,
-                             per_page: int = 10,
+                             per_page: int = 100,
                              max_page: int = -1,
-                             by_page: bool = True,
                              filter_: LeaderboardFilter=LeaderboardFilter.GLOBAL
-                             ) -> list[Score]:  # pyright: ignore[reportInvalidTypeForm]
-        # todo: add username filtering
+                             ) -> Any:
+        """
+        Returns the scen leaderboard
+        """
         endpoint: str|None = self._endpoint_for(filter_)
+        allPages: list[Any] = []
+        dict_result: dict[Any, Any] = {}
+        
         for offset in (itertools.count() if max_page == -1 else range(max_page)):
             resp = self.session.get(endpoint % (id, start_page + offset, per_page))  # pyright: ignore[reportOptionalOperand, reportUnknownArgumentType]
             resp.raise_for_status()
-            #print(json.dumps(resp.json(), indent=2))
-            result = [Score(
-                entry.get("steamId"),
-                entry.get("score"),
-                entry.get("rank"),
-                entry.get("steamAccountName"),
-                entry.get("kovaaksPlusActive"),
-                entry.get("attributes", {}).get("fov"),
-                entry.get("attributes", {}).get("hash"),
-                entry.get("attributes", {}).get("cm360"),
-                entry.get("attributes", {}).get("epoch"),
-                entry.get("attributes", {}).get("kills"),
-                entry.get("attributes", {}).get("avgFps"),
-                entry.get("attributes", {}).get("avgTtk"),
-                entry.get("attributes", {}).get("fovScale"),
-                entry.get("attributes", {}).get("vertSens"),
-                entry.get("attributes", {}).get("horizSens"),
-                entry.get("attributes", {}).get("resolution"),
-                entry.get("attributes", {}).get("sensScale"),
-                entry.get("attributes", {}).get("accuracyDamage"),
-                entry.get("attributes", {}).get("challengeStart"),
-                entry.get("attributes", {}).get("scenarioVersion"),
-                entry.get("attributes", {}).get("clientBuildVersion"),
-                entry.get("webappUsername"),
-                ) for entry in resp.json()["data"]]
 
-            if by_page: yield result  # pyright: ignore[reportReturnType]
-            else:
-                for x in result: yield x  # pyright: ignore[reportReturnType]
+            if(resp.json()["data"] == []): # (no more results)
+                break
+
+            result: list[Any] = []
+
+            if data_filter == []:
+                result = [Score(
+                    entry.get("steamId"),
+                    entry.get("score"),
+                    entry.get("rank"),
+                    entry.get("steamAccountName"),
+                    entry.get("kovaaksPlusActive"),
+                    entry.get("attributes", {}).get("fov"),
+                    entry.get("attributes", {}).get("hash"),
+                    entry.get("attributes", {}).get("cm360"),
+                    entry.get("attributes", {}).get("epoch"),
+                    entry.get("attributes", {}).get("kills"),
+                    entry.get("attributes", {}).get("avgFps"),
+                    entry.get("attributes", {}).get("avgTtk"),
+                    entry.get("attributes", {}).get("fovScale"),
+                    entry.get("attributes", {}).get("vertSens"),
+                    entry.get("attributes", {}).get("horizSens"),
+                    entry.get("attributes", {}).get("resolution"),
+                    entry.get("attributes", {}).get("sensScale"),
+                    entry.get("attributes", {}).get("accuracyDamage"),
+                    entry.get("attributes", {}).get("challengeStart"),
+                    entry.get("attributes", {}).get("scenarioVersion"),
+                    entry.get("attributes", {}).get("clientBuildVersion"),
+                    entry.get("webappUsername"),
+                    ) for entry in resp.json()["data"]]
+            elif not data_dict:
+                for entry in resp.json()["data"]:
+                    r_entry: dict[str, Any] = {}
+                    for filter in data_filter:
+                        r_entry[filter] = entry.get(filter)
+                    result.append(r_entry)
+            else: # return a dict
+                for entry in resp.json()["data"]:
+                    dict_result[entry.get(data_filter[0])] = entry.get(data_filter[1])
+
+            if len(result) > 0: 
+                allPages.append(*result)
+
+        return allPages if not data_dict else dict_result
 
     def scenario_count(self) -> int:
         resp = self.session.get(POPULAR_SCENARIOS % (0, 0))

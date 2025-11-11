@@ -1,7 +1,7 @@
 import json
 from flask import Flask, request
-#from rankPercentiles import getRanks
 from api.kovaaker import KovaakerClient
+from rank_percentiles.generator import RankPercentileGenerator
 
 app = Flask(__name__)
 
@@ -11,10 +11,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    client = KovaakerClient()
-    res = client.benchmarks(688, 76561198157599986)
+    generator = RankPercentileGenerator()
+    res = generator.get_all_rank_percentiles()
 
-    return json.dumps(res.to_json())
+    return res
 
 if __name__ == '__main__':
     app.run(port=80)

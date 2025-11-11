@@ -118,19 +118,6 @@ class Benchmark(JSONSeriazableDataclass):
     overall_rank: int
     categories: dict[str, BenchmarkCategory]
     ranks: list[BenchmarkRank]
-    
-
-'''
-For example:
-{
-    "voltaic-begin": ["Iron": 10.1],
-    "viscose": ["Celadon": 10.1]
-}
-'''
-@dataclass
-class RankPercentiles(list[Benchmark]):
-    pass
-
 
 class LeaderboardFilter(Enum):
     GLOBAL = 1

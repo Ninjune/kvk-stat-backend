@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 @dataclass
 class EvxlSubcategory:
     subcategoryName: str
+    kvkCategoryName: str # note this is not included on the official data, had to add for self
     scenarioCount: int
     color: str
 
@@ -41,7 +42,7 @@ def parseBenchmarkFromDict(data: dict[Any, Any]) -> EvxlBenchmark:
         categories: list[EvxlCategory] = []
         for cat_data in diff_data['categories']:
             subcategories: list[EvxlSubcategory] = [
-                EvxlSubcategory(**subcat_data)
+                EvxlSubcategory(**subcat_data) 
                 for subcat_data in cat_data['subcategories']
             ]
             categories.append(EvxlCategory(

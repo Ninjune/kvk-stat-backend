@@ -27,21 +27,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Arm",
+                                "kvkCategoryName": "Arm",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Wrist",
+                                "kvkCategoryName": "Wrist",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Fingertip",
+                                "kvkCategoryName": "Fingertip",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Blending",
+                                "kvkCategoryName": "Blending",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             }
@@ -53,16 +57,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Control",
+                                "kvkCategoryName": "Control",
                                 "scenarioCount": 2,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Speed",
                                 "scenarioCount": 2,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 2,
                                 "color": "#404074"
                             }
@@ -74,21 +81,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Speed",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Stability",
+                                "kvkCategoryName": "Stability",
                                 "scenarioCount": 2,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Micro",
+                                "kvkCategoryName": "Micro",
                                 "scenarioCount": 2,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Evasive",
                                 "scenarioCount": 2,
                                 "color": "#404074"
                             }
@@ -100,16 +111,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Precision",
+                                "kvkCategoryName": "Precision",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             },
                             {
                                 "subcategoryName": "Linear",
+                                "kvkCategoryName": "Linear",
                                 "scenarioCount": 3,
                                 "color": "#404074"
                             }
@@ -138,21 +152,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Arm",
+                                "kvkCategoryName": "Arm",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Wrist",
+                                "kvkCategoryName": "Wrist",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Fingertip",
+                                "kvkCategoryName": "Fingertip",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Blending",
+                                "kvkCategoryName": "Blending",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             }
@@ -164,16 +182,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Control",
+                                "kvkCategoryName": "Control",
                                 "scenarioCount": 2,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Speed",
                                 "scenarioCount": 2,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 2,
                                 "color": "#666666"
                             }
@@ -185,21 +206,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Speed",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Stability",
+                                "kvkCategoryName": "Stability",
                                 "scenarioCount": 2,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Micro",
+                                "kvkCategoryName": "Micro",
                                 "scenarioCount": 2,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Evasive",
                                 "scenarioCount": 2,
                                 "color": "#666666"
                             }
@@ -211,16 +236,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Precision",
+                                "kvkCategoryName": "Precision",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             },
                             {
                                 "subcategoryName": "Linear",
+                                "kvkCategoryName": "Linear",
                                 "scenarioCount": 3,
                                 "color": "#666666"
                             }
@@ -247,21 +275,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Arm",
+                                "kvkCategoryName": "Arm",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Wrist",
+                                "kvkCategoryName": "Wrist",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Fingertip",
+                                "kvkCategoryName": "Fingertip",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Blending",
+                                "kvkCategoryName": "Blending",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             }
@@ -273,16 +305,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Control",
+                                "kvkCategoryName": "Control",
                                 "scenarioCount": 2,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Speed",
                                 "scenarioCount": 2,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 2,
                                 "color": "#9EB3BD"
                             }
@@ -294,21 +329,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Speed",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Stability",
+                                "kvkCategoryName": "Stability",
                                 "scenarioCount": 2,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Micro",
+                                "kvkCategoryName": "Micro",
                                 "scenarioCount": 2,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Evasive",
                                 "scenarioCount": 2,
                                 "color": "#9EB3BD"
                             }
@@ -320,16 +359,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Precision",
+                                "kvkCategoryName": "Precision",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             },
                             {
                                 "subcategoryName": "Linear",
+                                "kvkCategoryName": "Linear",
                                 "scenarioCount": 3,
                                 "color": "#9EB3BD"
                             }
@@ -363,16 +405,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Dynamic",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#F1C232"
                             },
                             {
                                 "subcategoryName": "Static",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#E06666"
                             },
                             {
                                 "subcategoryName": "Linear",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#FF8A45"
                             }
@@ -384,16 +429,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Precise",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#45818E"
                             },
                             {
                                 "subcategoryName": "Reactive",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#3C78D8"
                             },
                             {
                                 "subcategoryName": "Control",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#42A5FF"
                             }
@@ -405,16 +453,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#A64D79"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#674EA7"
                             },
                             {
                                 "subcategoryName": "Stability",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#B4A3FF"
                             }
@@ -439,16 +490,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Dynamic",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#F1C232"
                             },
                             {
                                 "subcategoryName": "Static",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#E06666"
                             },
                             {
                                 "subcategoryName": "Linear",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#FF8A45"
                             }
@@ -460,16 +514,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Precise",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#45818E"
                             },
                             {
                                 "subcategoryName": "Reactive",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#3C78D8"
                             },
                             {
                                 "subcategoryName": "Control",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#42A5FF"
                             }
@@ -481,16 +538,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#A64D79"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#674EA7"
                             },
                             {
                                 "subcategoryName": "Stability",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#B4A3FF"
                             }
@@ -515,16 +575,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Dynamic",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#F1C232"
                             },
                             {
                                 "subcategoryName": "Static",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#E06666"
                             },
                             {
                                 "subcategoryName": "Linear",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#FF8A45"
                             }
@@ -536,16 +599,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Precise",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#45818E"
                             },
                             {
                                 "subcategoryName": "Reactive",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#3C78D8"
                             },
                             {
                                 "subcategoryName": "Control",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#42A5FF"
                             }
@@ -557,94 +623,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#A64D79"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#674EA7"
                             },
                             {
                                 "subcategoryName": "Stability",
-                                "scenarioCount": 2,
-                                "color": "#B4A3FF"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "difficultyName": "Elite (Unofficial)",
-                "kovaaksBenchmarkId": 475,
-                "sharecode": "KovaaKsMainingIndigoPatrol",
-                "rankColors": {
-                    "Nova": "#7900FF",
-                    "Astra": "#FF2262",
-                    "Celestial": "#24DDD8",
-                    "Stellaris": "#979DDA",
-                    "Lunara": "#54418E",
-                    "Solara": "#FCFFA0"
-                },
-                "categories": [
-                    {
-                        "categoryName": "Clicking",
-                        "color": "#CC0000",
-                        "subcategories": [
-                            {
-                                "subcategoryName": "Dynamic",
-                                "scenarioCount": 2,
-                                "color": "#F1C232"
-                            },
-                            {
-                                "subcategoryName": "Static",
-                                "scenarioCount": 2,
-                                "color": "#E06666"
-                            },
-                            {
-                                "subcategoryName": "Linear",
-                                "scenarioCount": 2,
-                                "color": "#FF8A45"
-                            }
-                        ]
-                    },
-                    {
-                        "categoryName": "Tracking",
-                        "color": "#1155CC",
-                        "subcategories": [
-                            {
-                                "subcategoryName": "Precise",
-                                "scenarioCount": 2,
-                                "color": "#45818E"
-                            },
-                            {
-                                "subcategoryName": "Reactive",
-                                "scenarioCount": 2,
-                                "color": "#3C78D8"
-                            },
-                            {
-                                "subcategoryName": "Control",
-                                "scenarioCount": 2,
-                                "color": "#42A5FF"
-                            }
-                        ]
-                    },
-                    {
-                        "categoryName": "Switching",
-                        "color": "#351C75",
-                        "subcategories": [
-                            {
-                                "subcategoryName": "Speed",
-                                "scenarioCount": 2,
-                                "color": "#A64D79"
-                            },
-                            {
-                                "subcategoryName": "Evasive",
-                                "scenarioCount": 2,
-                                "color": "#674EA7"
-                            },
-                            {
-                                "subcategoryName": "Stability",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#B4A3FF"
                             }
@@ -678,11 +669,13 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Dynamic",
+                                "kvkCategoryName": "Clicking Dynamic",
                                 "scenarioCount": 2,
                                 "color": "#F1C232"
                             },
                             {
                                 "subcategoryName": "Static",
+                                "kvkCategoryName": "Clicking Static",
                                 "scenarioCount": 2,
                                 "color": "#E06666"
                             }
@@ -694,11 +687,13 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Precise",
+                                "kvkCategoryName": "Tracking Precise",
                                 "scenarioCount": 2,
                                 "color": "#45818E"
                             },
                             {
                                 "subcategoryName": "Reactive",
+                                "kvkCategoryName": "TrackingReactive",
                                 "scenarioCount": 2,
                                 "color": "#3C78D8"
                             }
@@ -710,11 +705,13 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Switching Speed",
                                 "scenarioCount": 2,
                                 "color": "#A64D79"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "SwitchingEvasive",
                                 "scenarioCount": 2,
                                 "color": "#674EA7"
                             }
@@ -739,16 +736,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Dynamic",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#F1C232"
                             },
                             {
                                 "subcategoryName": "Static",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#E06666"
                             },
                             {
                                 "subcategoryName": "Strafe",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#FC74FC"
                             }
@@ -760,16 +760,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Precise",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#45818E"
                             },
                             {
                                 "subcategoryName": "Reactive",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#3C78D8"
                             },
                             {
                                 "subcategoryName": "Strafe",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#FC74FC"
                             }
@@ -781,11 +784,13 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#A64D79"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#674EA7"
                             }
@@ -810,16 +815,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Dynamic",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#F1C232"
                             },
                             {
                                 "subcategoryName": "Static",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#E06666"
                             },
                             {
                                 "subcategoryName": "Strafe",
+                                "kvkCategoryName": "Clicking",
                                 "scenarioCount": 2,
                                 "color": "#FC74FC"
                             }
@@ -831,16 +839,19 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Precise",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#45818E"
                             },
                             {
                                 "subcategoryName": "Reactive",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#3C78D8"
                             },
                             {
                                 "subcategoryName": "Strafe",
+                                "kvkCategoryName": "Tracking",
                                 "scenarioCount": 2,
                                 "color": "#FC74FC"
                             }
@@ -852,11 +863,13 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Speed",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#A64D79"
                             },
                             {
                                 "subcategoryName": "Evasive",
+                                "kvkCategoryName": "Switching",
                                 "scenarioCount": 2,
                                 "color": "#674EA7"
                             }
