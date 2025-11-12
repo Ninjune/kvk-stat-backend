@@ -69,7 +69,7 @@ def _scenRankCalculate(threshold: list[int], score: float) -> float:
         log("")
         log("Score: " + str(score) + " Threshold: " + json.dumps(threshold))
 
-    if(score > threshold[len(threshold)-1]):
+    if(score >= threshold[len(threshold)-1]):
         # uses the previous diff b/c there is no other diff to check
         i = len(threshold)-1
         energy = i + (score - threshold[len(threshold)-1])/(threshold[len(threshold)-1] - threshold[len(threshold)-2])
@@ -127,6 +127,8 @@ def _genericRankCalculate(bm: FullBenchmarkData,
                 if(scenScoreData.get(steamId) is None): # other scens in the subcategory should have the player
                     continue
                 newEnergy = calculateEnergyFunction(threshold, scenScoreData[steamId])
+                if(bm.evxl_benchmark.rankCalculation == "vt-energy" and bm.difficulty.difficultyName == "Advanced"):
+                    newEnergy = min(newEnergy, (len(threshold)) * 100)
                 if(newEnergy > subcategoryEnergy):
                     subcategoryEnergy = newEnergy
             subcategoryEnergies.append(subcategoryEnergy)
