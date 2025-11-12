@@ -93,6 +93,10 @@ class RankPercentileGenerator:
             for subcategory in category.subcategories:
                 if("Viscose" in fullData.evxl_benchmark.benchmarkName):
                     currentScenInCategory = 0
+
+                if(evxl_data.benchmarkName == "Voltaic S4" and fullData.difficulty.difficultyName == "Novice"):
+                    currentScenInCategory = 0
+
                 for _ in range(subcategory.scenarioCount):
                     categoryName = subcategory.kvkCategoryName
                     scenDict = fullData.kvk_benchmark.categories[categoryName].scenarios

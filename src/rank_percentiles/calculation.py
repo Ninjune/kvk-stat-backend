@@ -32,54 +32,6 @@ def _voltaicBenchmarkOverallRankCalculate(bm: FullBenchmarkData,
                                           percentileData: PercentileData,
                                           steamId: int) -> str:
     return _genericRankCalculate(bm, percentileData, steamId, _voltaicScenRankCalculate, statistics.harmonic_mean)
-    rank = ""
-    energies: list[float] = []
-
-    if(bm.difficulty.difficultyName == "Advanced" and steamId == 76561198065865918):
-        logging = True
-    else:
-        logging = False
-
-    currentScenInCategory: int = 0
-    for category in bm.difficulty.categories:
-        currentScenInCategory = 0
-        for subcategory in category.subcategories:
-            subcategoryEnergy = 0
-            for _ in range(subcategory.scenarioCount):
-                scenName: str = list(bm.kvk_benchmark.categories[category.categoryName].scenarios.keys())[currentScenInCategory]
-                currentScenInCategory += 1
-                threshold = percentileData.thresholdMap[(bm.evxl_benchmark.benchmarkName, bm.difficulty.difficultyName, scenName)]
-                scenScoreData = (percentileData.scenSteamIdScoreMap.data[bm.evxl_benchmark.benchmarkName]
-                            [bm.difficulty.difficultyName]
-                            [subcategory.subcategoryName]
-                            [scenName])
-                if(scenScoreData.get(steamId) is None): # other scens in the subcategory should have the player
-                    continue
- 
-                newEnergy: float = _voltaicScenRankCalculate(
-                        threshold,
-                        scenScoreData[steamId]
-                        )
-                if(newEnergy > subcategoryEnergy):
-                    subcategoryEnergy = newEnergy
-            energies.append(subcategoryEnergy)
-
-    energy = statistics.harmonic_mean(energies)
-    if(logging):
-        log("Harmonic: " + str(energy))
-
-    ranks: list[str] = [rank.name for rank in bm.kvk_benchmark.ranks]
-
-    if(energy < 100):
-        rank = ""
-    elif(energy >= len(ranks)*100):
-        rank = ranks[len(ranks) - 1]
-    else:
-        rank = ranks[int(energy/100)]
-
-    if(logging):
-        log("Rank: " + rank)
-    return rank
 
 
 def _voltaicScenRankCalculate(threshold: list[int], score: float) -> float:

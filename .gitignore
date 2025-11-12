@@ -1,4 +1,5 @@
 __pycache__
 logs
 data/cached
-!*.gitkeep
+!data/cached/.gitkeep
+!logs/.gitkeep
