@@ -21,10 +21,10 @@ class RankPercentileGenerator:
         result: dict[str, dict[str, dict[str, int]]] = {}
         with open(EVXL_BENCHMARKS_PATH , "r") as f:
             evxl_benchmark_data = parse_benchmarks_from_json(json.load(f))
-        # process evxl data
+
         for benchmark in evxl_benchmark_data:
             for difficulty in benchmark.difficulties:
-                if benchmark.rankCalculation == "vt-energy" and difficulty.difficultyName == "Advanced":
+                #if benchmark.rankCalculation == "vt-energy" and difficulty.difficultyName == "Advanced":
                     (result.setdefault(benchmark.benchmarkName, {})
                     .setdefault(difficulty.difficultyName, self.get_rank_percentiles(difficulty, benchmark))
                     )
@@ -137,8 +137,6 @@ class RankPercentileGenerator:
         rankedInDifficulty: int = 0
 
         for steamId in rankMap.keys():
-            if(rankMap[steamId] == "Celestial"):
-                log(str(steamId))
             for rank in fullData.difficulty.rankColors.keys():
                 rankCount.setdefault(rank, 0)
                 if(rankMap[steamId] == rank):
