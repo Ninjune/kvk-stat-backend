@@ -1,5 +1,6 @@
-META_FILE_PATH = "data/meta.json"
 EVXL_BENCHMARKS_PATH = "data/static/benchmarks.json"
+
+META_FILE_PATH = "data/cached/meta.json"
 PERCENTILES_PATH = "data/cached/rank_percentiles.json"
 SCEN_SCORE_MAP_PATH = "data/cached/scenario_score_map.json"
 RANK_COUNT_MAP_PATH = "data/cached/rank_count_map.json"

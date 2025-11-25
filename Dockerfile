@@ -6,5 +6,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-#RUN mkdir -p /app/certs
-CMD ["gunicorn", "-b", "0.0.0.0:80", "--chdir", "src", "-w", "4", "app:app"]
+CMD ["python", "/app/entrypoint.py"]
