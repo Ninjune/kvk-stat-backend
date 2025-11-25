@@ -11,6 +11,7 @@ class Status(enum.Enum):
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 log_path = f"logs/log_{timestamp}.txt"
 log_data = SaveData[str](log_path, "", False)
+
 def log(message: str, status: Status = Status.OK):
     t = localtime()
     time = "[" + ("0" if t.tm_hour < 10 else "") + str(t.tm_hour) + ":" \

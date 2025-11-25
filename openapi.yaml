@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  title: Kovaaks API
+  version: 1.0.0
+components:
+  schemas:
+    rank-count:
+      description: The count of all ranks.
+      type: object
+      properties:
+        benchmarkName:
+          type: object
+          properties:
+            difficulty:
+              type: object
+              rank:
+                type: int
+paths:
+  /request-benchmark:
+    get:
+      summary: Request a benchmark from Evxl to be able to count.
+  /rank-count:
+    get:
+      summary: Get the Kovaaks benchmark rank counts.
+      parameters:
+        - name: benchmark
+          description: The benchmark filter to use.
+          in: query
+          required: false
+        - name: difficulty
+          description: The difficulty filter to use.
+          in: query
+          required: false
+      responses:
+        "200": 
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/rank-count"

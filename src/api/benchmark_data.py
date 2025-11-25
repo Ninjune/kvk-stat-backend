@@ -1,8 +1,9 @@
 from api.kovaaker import KovaakerClient
-from api.models.extra_models import FullBenchmarkData, SaveData
+from api.models.extra_models import CachedData, FullBenchmarkData
 from api.models.kvk_models import BenchmarkCategory, BenchmarkScenario
 from util import log
 from constants import *
+type ScenScoreMap=dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]
 
 class PercentileData:
     def __init__(self):
@@ -12,7 +13,7 @@ class PercentileData:
         self.thresholdMap: dict[tuple[str, str, str], list[int]] = {}
         """map of each benchmark name/difficulty name/scenario to the thresholds on that scen"""
 
-        self.scenSteamIdScoreMap = SaveData[dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]](SCEN_SCORE_MAP_PATH, {})
+        self.scenSteamIdScoreMap = CachedData[ScenScoreMap](SCEN_SCORE_MAP_PATH, STEAM_SCEN_SCORE_INTERVAL_SECONDS, {})
         """map of each benchmark, difficulty, category, scenario to the steamId: score of that respective scenario"""
         self.scenSteamIdScoreMap.load()
         pass
@@ -37,7 +38,8 @@ class PercentileData:
                     .get(subcategory, {})
                     .get(scen))
 
-                if(scen_found is not None):
+                path: list[str] = [bmd.evxl_benchmark.benchmarkName, bmd.difficulty.difficultyName, subcategory, scen]
+                if(scen_found is not None and self.scenSteamIdScoreMap.shouldUseCache(path)):
                     return
 
                 self.scenSteamIdScoreMap.data \
@@ -49,4 +51,4 @@ class PercentileData:
                         ["steamId", "score"],
                         True)
                     )
-                self.scenSteamIdScoreMap.save()
+                self.scenSteamIdScoreMap.save(path)

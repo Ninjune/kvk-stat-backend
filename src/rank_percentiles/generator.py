@@ -1,62 +1,68 @@
 import json
 from api.benchmark_data import PercentileData
-from api.models.extra_models import FullBenchmarkData
+from api.models.extra_models import CachedData, FullBenchmarkData
 from api.models.kvk_models import *
 from api.models.evxl_models import *
 from util import log
 from rank_percentiles.calculation import getBenchmarkRank
 from constants import *
 
+class RankCount(dict[str, dict[str, dict[str, int]]]): pass
 
 class RankPercentileGenerator:
+    """Very resource heavy, should only be created once"""
     def __init__(self):
+        self.savedRankCount = CachedData[RankCount](RANK_COUNT_MAP_PATH, RANK_COUNT_CACHE_INTERVAL_SECONDS, RankCount())
+        # kvk benchmark id to Benchmark
+        self.savedBenchmarkMap = CachedData[dict[str, dict[Any, Any]]](KVK_BENCHMARK_MAP_PATH, KVK_BENCHMARK_MAP_INTERVAL_SECONDS, {})
         self.percentileData = PercentileData()
 
-    def get_all_rank_percentiles(self) -> dict[str, dict[str, dict[str, int]]]:
+    def getRankCounts(self, filterBenchmark: str = "", filterDifficulty: str = "") -> dict[str, dict[str, dict[str, int]]]:
         """
         returns the percentiles for ALL benchmarks in the benchmarks.json file
         in the format {name: {difficulty: RankPercentiles}}
         """
         log("Starting to download all rank percentiles!")
-        result: dict[str, dict[str, dict[str, int]]] = {}
+        result: RankCount = RankCount()
+
         with open(EVXL_BENCHMARKS_PATH , "r") as f:
             evxl_benchmark_data = parse_benchmarks_from_json(json.load(f))
 
         for benchmark in evxl_benchmark_data:
             for difficulty in benchmark.difficulties:
-                #if benchmark.rankCalculation == "vt-energy" and difficulty.difficultyName == "Advanced":
-                    (result.setdefault(benchmark.benchmarkName, {})
-                    .setdefault(difficulty.difficultyName, self.get_rank_percentiles(difficulty, benchmark))
-                    )
+                if filterBenchmark in benchmark.benchmarkName and filterDifficulty in difficulty.difficultyName:
+                    result.setdefault(benchmark.benchmarkName, {})[difficulty.difficultyName] = self._getRankCount(difficulty, benchmark)
 
-        log("")
-        for benchmark in result.keys():
-            rankedInBenchmark = 0
-            log("Benchmark: " + benchmark)
-            for difficulty in result[benchmark].keys():
-                rankedInDifficulty = 0
-                for rank in result[benchmark][difficulty]:
-                    log(rank + ": " + str(result[benchmark][difficulty][rank]))
-                    rankedInDifficulty += result[benchmark][difficulty][rank]
-                log("Total ranked in difficulty " + difficulty + ": " + str(rankedInDifficulty) + "\n")
-                rankedInBenchmark += rankedInDifficulty
-            log("Total ranked in benchmark (NOTE: overlap expected): " + str(rankedInBenchmark) + "\n")
-
+        self._logRankCounts(result)
 
         return result
 
 
-    def get_rank_percentiles(self, difficulty: EvxlDifficulty, evxl_data: EvxlBenchmark) -> dict[str, int]:
+    def _getRankCount(self, difficulty: EvxlDifficulty, evxl_data: EvxlBenchmark) -> dict[str, int]:
         """returns the percentiles for one benchmark and it's difficulty"""
         # read from json the map of each scenario name in the benchmarks to the scenario id 
         log("Getting rank percentiles with benchmark=" + evxl_data.benchmarkName 
             + " and difficulty=" + difficulty.difficultyName
             )
 
+        if(self.savedRankCount.shouldUseCache([evxl_data.benchmarkName, difficulty.difficultyName])):
+            log("Detected valid cache for benchmark! Returning.")
+            return self.savedRankCount.data[evxl_data.benchmarkName][difficulty.difficultyName]
+
         kvk_benchmark_id: int = difficulty.kovaaksBenchmarkId
+        kvk_benchmark_data: Benchmark|None = None
 
         log("Requesting Kvk benchmark data with benchmark id=" + str(kvk_benchmark_id) + "...")
-        kvk_benchmark_data: Benchmark = self.percentileData.apiClient.benchmarks(kvk_benchmark_id, STEAM_ID)
+
+        if(self.savedBenchmarkMap.shouldUseCache([str(kvk_benchmark_id)])):
+            log("Detected valid cache for kvk benchmark! Skipping download...")
+            kvk_benchmark_data = self.percentileData.apiClient.parse_kvk_benchmarks_from_json(self.savedBenchmarkMap.data[str(kvk_benchmark_id)])
+        else:
+            log("Downloading kvk benchmark!")
+            kvk_benchmark_data = self.percentileData.apiClient.benchmarks(kvk_benchmark_id, STEAM_ID)
+            self.savedBenchmarkMap.data[str(kvk_benchmark_id)] = asdict(kvk_benchmark_data)
+            self.savedBenchmarkMap.save([str(kvk_benchmark_id)])
+
         log("Successfully requested kvk benchmark data! Updating scenario Id map...")
         for category in kvk_benchmark_data.categories:
             category_data = kvk_benchmark_data.categories[category]
@@ -143,4 +149,23 @@ class RankPercentileGenerator:
                     rankCount[rank] += 1
                 rankedInDifficulty += 1
 
+        log("Caching rank count!")
+        self.savedRankCount.data[evxl_data.benchmarkName][difficulty.difficultyName] = rankCount
+        self.savedRankCount.save([evxl_data.benchmarkName, difficulty.difficultyName])
+
         return rankCount
+
+    def _logRankCounts(self, result: RankCount):
+        log("")
+        for benchmark in result.keys():
+            rankedInBenchmark = 0
+            log("Benchmark: " + benchmark)
+            for difficulty in result[benchmark].keys():
+                rankedInDifficulty = 0
+                for rank in result[benchmark][difficulty]:
+                    log(rank + ": " + str(result[benchmark][difficulty][rank]))
+                    rankedInDifficulty += result[benchmark][difficulty][rank]
+                log("Total ranked in difficulty " + difficulty + ": " + str(rankedInDifficulty) + "\n")
+                rankedInBenchmark += rankedInDifficulty
+            log("Total ranked in benchmark (NOTE: overlap expected): " + str(rankedInBenchmark) + "\n")
+

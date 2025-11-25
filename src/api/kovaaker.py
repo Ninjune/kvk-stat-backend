@@ -5,6 +5,7 @@ from typing import Any
 from base64 import b64encode
 from urllib.parse import quote
 
+from api.models.extra_models import JSON
 from api.models.kvk_models import *
 from api.endpoints import *
 
@@ -184,6 +185,10 @@ class KovaakerClient:
         resp.raise_for_status()
         data = resp.json()
 
+        return self.parse_kvk_benchmarks_from_json(data);
+
+    @staticmethod
+    def parse_kvk_benchmarks_from_json(data: Any) -> Benchmark:
         ranks: list[BenchmarkRank] = []
         for rank in data.get("ranks"):
             ranks.append(BenchmarkRank(
@@ -220,11 +225,9 @@ class KovaakerClient:
                             )
 
 
-        result = Benchmark(
+        return Benchmark(
                 data.get("benchmark_progress"),
                 data.get("overall_rank"),
                 categories,
                 ranks
                 )
-
-        return result;
