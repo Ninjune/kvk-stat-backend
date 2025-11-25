@@ -25,5 +25,5 @@ def index():
     return "/rank-percentiles -- Returns rank counts"
 
 if __name__ == '__main__':
-    app.run(port=443, ssl_context=("/app/certs/fullchain.pem", "/app/certs/privkey.pem"))
+    app.run(port=80)
     #res = generator.getRankCounts()
