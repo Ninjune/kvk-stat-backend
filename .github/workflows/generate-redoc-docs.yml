@@ -1,0 +1,38 @@
+name: Generate Redoc Documentation
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'openapi.yaml'
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate Redoc documentation
+        run: npx @redocly/cli build-docs openapi.yaml -o redoc-static.html
+
+      - name: Create data/static directory
+        run: mkdir -p data/static
+
+      - name: Move generated docs
+        run: mv redoc-static.html data/static/
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/static/redoc-static.html
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Redoc documentation [skip ci]" && git push)
