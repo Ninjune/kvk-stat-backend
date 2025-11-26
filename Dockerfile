@@ -18,9 +18,7 @@ RUN apt-get update && apt-get install -y \
     libxkbcommon0 \
     libpango-1.0-0 \
     libcairo2 \
-    libasound2 \
-    && apt-get update \
-`
+    libasound2
 
 COPY . .
 
