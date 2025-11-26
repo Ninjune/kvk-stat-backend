@@ -22,11 +22,11 @@ def gen_graphs(data: RankCount):
 
     # cumulative graphs
     percentile = get_cumulative_percent(data)
-    gen_graph(percentile, "Percentiles", PERCENTILE_BAR_PATH)
+    gen_graph(percentile, "Percentiles", PERCENTILE_BAR_PATH, True)
 
     log("All graphs generated!")
 
-def gen_graph(data: RankCount, name: str, path: str):
+def gen_graph(data: RankCount, name: str, path: str, percent_format: bool = False):
     for benchmark_name, difficulties in data.items():
         fig = go.Figure()
         
@@ -36,7 +36,8 @@ def gen_graph(data: RankCount, name: str, path: str):
                 name=difficulty_name,
                 x=list(ranks.keys()),
                 y=list(ranks.values()),
-                text=list(f"{c:.3f}%" for c in ranks.values()),
+                text=(list(f"{c:.3f}%" for c in ranks.values())) if percent_format else
+                      list(f"{c:.0f}" for c in ranks.values()),
                 textposition='auto',
             ))
         
