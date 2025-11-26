@@ -9,15 +9,24 @@ pio.get_chrome()  # pyright: ignore[reportUnknownMemberType, reportAttributeAcce
 COUNT_BAR_PATH = "../data/cached/graphs/count_bar/"
 CUMULATIVE_BAR_PATH = "../data/cached/graphs/cumulative_bar/"
 PERCENTILE_BAR_PATH = "../data/cached/graphs/cumulative_percentile_bm_bar/" 
-DIFFICULTY_PERCENTILE_BAR_PATH = "../data/cached/graphs/cumulative_percentile_difficulty" 
 
 def gen_graphs(data: RankCount):
     Path(COUNT_BAR_PATH).mkdir(parents=True, exist_ok=True)
     Path(CUMULATIVE_BAR_PATH).mkdir(parents=True, exist_ok=True)
     Path(PERCENTILE_BAR_PATH).mkdir(parents=True, exist_ok=True)
-    Path(DIFFICULTY_PERCENTILE_BAR_PATH).mkdir(parents=True, exist_ok=True)
 
-    # count_bar graphs
+    gen_graph(data, "Count in Each Rank", COUNT_BAR_PATH)
+   
+    cumulative = get_cumulative_count(data)
+    gen_graph(cumulative, "Cumulative Count (>= rank)", CUMULATIVE_BAR_PATH) 
+
+    # cumulative graphs
+    percentile = get_cumulative_percent(data)
+    gen_graph(percentile, "Percentiles", PERCENTILE_BAR_PATH)
+
+    log("All graphs generated!")
+
+def gen_graph(data: RankCount, name: str, path: str):
     for benchmark_name, difficulties in data.items():
         fig = go.Figure()
         
@@ -27,13 +36,13 @@ def gen_graphs(data: RankCount):
                 name=difficulty_name,
                 x=list(ranks.keys()),
                 y=list(ranks.values()),
-                text=list(ranks.values()),
+                text=list(f"{c:.3f}%" for c in ranks.values()),
                 textposition='auto',
             ))
         
         # Update layout
         fig.update_layout(
-            title=f'{benchmark_name} - Rank Distribution',
+            title=f'{benchmark_name} - {name}',
             xaxis_title='Rank',
             yaxis_title='Count',
             barmode='group',
@@ -49,86 +58,8 @@ def gen_graphs(data: RankCount):
             )
         )
 
-        save_graph(fig, COUNT_BAR_PATH, f"{benchmark_name.replace(' ', '_')}_bar_graph.png")
+        save_graph(fig, path, f"{benchmark_name.replace(' ', '_')}_bar_graph.png")
 
-    # cumulative graphs
-    for benchmark_name, difficulties in data.items():
-        fig = go.Figure()
-        
-        # Add a bar trace for each difficulty level
-        for difficulty_name, ranks in difficulties.items():
-            cumulative = _generate_cumulative_count(data, benchmark_name, difficulty_name)
-            if cumulative is None:
-                continue
-
-            fig.add_trace(go.Bar(
-                name=difficulty_name,
-                x=list(cumulative.keys()),
-                y=list(cumulative.values()),
-                text=list(cumulative.values()),
-                textposition='auto',
-            ))
-        
-        # Update layout
-        fig.update_layout(
-            title=f'{benchmark_name} - Cumulative Rank Distribution (>= highest rank)',
-            xaxis_title='Rank',
-            yaxis_title='Count',
-            barmode='group',
-            height=600,
-            width=1200,
-            template='plotly_white',
-            font=dict(size=12),
-            legend=dict(
-                title='Difficulty',
-                orientation='v',
-                x=1.02,
-                y=1
-            )
-        )
-
-        save_graph(fig, CUMULATIVE_BAR_PATH, f"{benchmark_name.replace(' ', '_')}_bar_graph.png")
-
-    # percentile graphs
-    for benchmark_name, difficulties in data.items():
-        fig = go.Figure()
-        
-        # Add a bar trace for each difficulty level
-        for difficulty_name, ranks in difficulties.items():
-            cumulative = _generate_cumulative_percentages_benchmark(data, benchmark_name, difficulty_name)
-            if cumulative is None:
-                continue
-
-            fig.add_trace(go.Bar(
-                name=difficulty_name,
-                x=list(cumulative.keys()),
-                y=list(cumulative.values()),
-                text=list(cumulative.values()),
-                textposition='auto',
-            ))
-        
-        # Update layout
-        fig.update_layout(
-            title=f'{benchmark_name} - Cumulative Rank Distribution (>= highest rank)',
-            xaxis_title='Rank',
-            yaxis_title='Count',
-            barmode='group',
-            height=600,
-            width=1200,
-            template='plotly_white',
-            font=dict(size=12),
-            legend=dict(
-                title='Difficulty',
-                orientation='v',
-                x=1.02,
-                y=1
-            )
-        )
-
-        save_graph(fig, PERCENTILE_BAR_PATH, f"{benchmark_name.replace(' ', '_')}_bar_graph.png")
-
-
-    log("All graphs generated!")
 
 def save_graph(fig: go.Figure, path: str, name: str):
         # Save as PNG
@@ -136,97 +67,78 @@ def save_graph(fig: go.Figure, path: str, name: str):
         fig.write_image(filename, engine='kaleido')
         log(f"Saved: {filename}")
 
-def _generate_cumulative_count(data: RankCount, benchmark_name: str, difficulty_name: str) -> dict[str, int]|None:
+def get_cumulative_count(data: RankCount) -> RankCount:
     """
-    Generate cumulative player counts (>= each rank).
-    Each rank shows count of players at that rank or higher.
+    Calculate cumulative count where each rank shows count of players >= that rank.
+    Considers difficulty ordering (lower difficulties include all higher difficulties).
     
     Args:
-        data: The rank count dictionary
-        benchmark_name: Name of benchmark
-        difficulty_name: Name of difficulty
+        data: Dictionary with structure {benchmark: {difficulty: {rank: count}}}
     
     Returns:
-        dict: {rank: cumulative_count} where cumulative_count is players >= that rank
+        RankCount with cumulative counts for each rank
     """
-    if benchmark_name not in data or difficulty_name not in data[benchmark_name]:
-        return None
+    result = RankCount()
     
-    ranks = data[benchmark_name][difficulty_name]
-    rank_names = list(ranks.keys())
+    for benchmark_name, difficulties in data.items():
+        result[benchmark_name] = {}
+        
+        # Get ordered list of difficulties
+        difficulty_list = list(difficulties.keys())
+        
+        for diff_idx, (difficulty_name, ranks) in enumerate(difficulties.items()):
+            result[benchmark_name][difficulty_name] = {}
+            
+            # Get ranks in order for this difficulty
+            rank_list = list(ranks.keys())
+            
+            # Calculate cumulative for each rank in current difficulty
+            for rank_idx, rank_name in enumerate(rank_list):
+                cumulative = 0
+                
+                # Add all players from higher difficulties
+                for higher_diff in difficulty_list[diff_idx + 1:]:
+                    cumulative += sum(difficulties[higher_diff].values())
+                
+                # Add all players from current rank onwards in current difficulty
+                for higher_rank in rank_list[rank_idx:]:
+                    cumulative += ranks[higher_rank]
+                
+                result[benchmark_name][difficulty_name][rank_name] = float(cumulative)
     
-    # Calculate cumulative counts from right to left (highest ranks first)
-    cumulative = {}
-    running_total = 0
-    
-    for rank in reversed(rank_names):
-        running_total += ranks[rank]
-        cumulative[rank] = running_total
-    
-    # Return in original order
-    return {rank: cumulative[rank] for rank in rank_names}
+    return result
 
-
-def _generate_cumulative_percentages_benchmark(data: RankCount, benchmark_name: str, difficulty_name: str) -> dict[str, float]|None:
+def get_cumulative_percent(data: RankCount) -> RankCount:
     """
-    Generate cumulative percentages as % of entire benchmark.
+    Calculate cumulative percentage where each rank shows % of players >= that rank.
+    Considers difficulty ordering (lower difficulties include all higher difficulties).
     
     Args:
-        data: The rank count dictionary
-        benchmark_name: Name of benchmark
-        difficulty_name: Name of difficulty
+        data: Dictionary with structure {benchmark: {difficulty: {rank: count}}}
     
     Returns:
-        dict: {rank: percentage} where percentage is % of total benchmark players >= that rank
+        RankCount with cumulative percentages (0-100) for each rank
     """
-    if benchmark_name not in data:
-        return None
+    # First get the cumulative counts
+    cumulative_counts = get_cumulative_count(data)
     
-    # Calculate total players across all difficulties
-    total_benchmark_players = sum(
-        count for diff_ranks in data[benchmark_name].values() 
-        for count in diff_ranks.values()
-    )
+    result = RankCount()
     
-    if total_benchmark_players == 0:
-        return None
+    for benchmark_name, difficulties in cumulative_counts.items():
+        result[benchmark_name] = {}
+        
+        # Calculate total players in this benchmark
+        total_players = sum(
+            sum(ranks.values()) 
+            for ranks in data[benchmark_name].values()
+        )
+        
+        for difficulty_name, ranks in difficulties.items():
+            result[benchmark_name][difficulty_name] = {}
+            
+            for rank_name, count in ranks.items():
+                # Convert count to percentage
+                percentage = (count / total_players) * 100 if total_players > 0 else 0.0
+                result[benchmark_name][difficulty_name][rank_name] = round(percentage, 3)
     
-    cumulative_counts = _generate_cumulative_count(data, benchmark_name, difficulty_name)
-    if cumulative_counts is None:
-        return None
-    
-    return {
-        rank: (count / total_benchmark_players) * 100 
-        for rank, count in cumulative_counts.items()
-    }
-
-
-def _generate_cumulative_percentages_difficulty(data: RankCount, benchmark_name: str, difficulty_name: str) -> dict[str, float]|None:
-    """
-    Generate cumulative percentages as % of players in that difficulty.
-    
-    Args:
-        data: The rank count dictionary
-        benchmark_name: Name of benchmark
-        difficulty_name: Name of difficulty
-    
-    Returns:
-        dict: {rank: percentage} where percentage is % of difficulty players >= that rank
-    """
-    if benchmark_name not in data or difficulty_name not in data[benchmark_name]:
-        return None
-    
-    ranks = data[benchmark_name][difficulty_name]
-    total_difficulty_players = sum(ranks.values())
-    
-    if total_difficulty_players == 0:
-        return None
-    
-    cumulative_counts = _generate_cumulative_count(data, benchmark_name, difficulty_name)
-    if cumulative_counts is None:
-        return None
-    
-    return {
-        rank: (count / total_difficulty_players) * 100 
-        for rank, count in cumulative_counts.items()
-    }
+    return result
