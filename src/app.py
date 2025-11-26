@@ -1,3 +1,5 @@
+from threading import Thread
+from time import sleep
 from flask import Flask, jsonify, request, send_from_directory
 from rank_percentiles.generator import RankPercentileGenerator
 
@@ -15,7 +17,7 @@ def rankPercentiles():
     if(difficulty is None):
         difficulty = ""
 
-    res = generator.getRankCounts(benchmark, difficulty)
+    res = generator.getRankCounts(True, benchmark, difficulty)
 
     return jsonify(res)
 
@@ -23,5 +25,16 @@ def rankPercentiles():
 def index():
     return send_from_directory("../data/static", "redoc-static.html")
 
-if __name__ == '__main__':
-    app.run(port=80)
+def update_cache():
+    while True:
+        try:
+            print("Updating rank data in background...")
+            generator.updateCache()
+            print("Rank data updated!")
+        except Exception as e:
+            print(f"Background update failed: {e}")
+        sleep(24*3600)  # Update every hour
+
+if __name__ != '__main__':
+    updater_thread = Thread(target=update_cache, daemon=True)
+    updater_thread.start()

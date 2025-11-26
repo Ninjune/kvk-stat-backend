@@ -52,11 +52,13 @@ class KovaakerClient:
         Returns the scen leaderboard
         """
         endpoint: str|None = self._endpoint_for(filter_)
+        if endpoint is None:
+            raise Exception("Endpoint not found!")
         allPages: list[Any] = []
         dict_result: dict[Any, Any] = {}
         
         for offset in (itertools.count() if max_page == -1 else range(max_page)):
-            resp = self.session.get(endpoint % (id, start_page + offset, per_page))  # pyright: ignore[reportOptionalOperand, reportUnknownArgumentType]
+            resp = self.session.get(endpoint % (id, start_page + offset, per_page))
             resp.raise_for_status()
 
             if(resp.json()["data"] == []): # (no more results)
