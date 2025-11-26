@@ -5,6 +5,9 @@ on:
       - main
     paths:
       - 'openapi.yaml'
+concurrency:
+  group: generate-docs
+  cancel-in-progress: true
 jobs:
   generate-docs:
     runs-on: ubuntu-latest
