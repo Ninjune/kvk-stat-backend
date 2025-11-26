@@ -16,8 +16,9 @@ components:
           properties:
             difficulty:
               type: object
-              rank:
-                type: int
+              properties:
+                rank:
+                  type: int
 paths:
   /request-benchmark:
     get:
