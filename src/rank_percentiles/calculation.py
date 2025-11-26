@@ -12,10 +12,6 @@ def getBenchmarkRank(benchmark: FullBenchmarkData,
     """
     gets the overall benchmark rank of 
 
-    two options: use benchmark request on every single steam id (obtained from each player on all benchmark scen maps) 
-    (more api requests, but more general for any benchmark calculation)
-    OR calculate the score based on the scoring method of the benchmark using the score from the leaderboard 
-    (restricted to only benchmark calculations that have been implemented, but less api requests)
 
     Solution: use implemented calculations for types that are implemented, and use benchmark requests for those that aren't impl
 
@@ -24,7 +20,7 @@ def getBenchmarkRank(benchmark: FullBenchmarkData,
     rank_calculation = benchmark.evxl_benchmark.rankCalculation
     calc_function = getCalculationMap().get(rank_calculation)
     if(calc_function is None):
-        return _unknownRankCalculate(benchmark, percentileData, steamId)
+        return ""
     else:
         return calc_function(benchmark, percentileData, steamId)
 
@@ -144,17 +140,6 @@ def _genericRankCalculate(bm: FullBenchmarkData,
         rank = ranks[int(energy/100)]
 
     return rank
-
-
-def _unknownRankCalculate(benchmark: FullBenchmarkData, 
-                          percentileData: PercentileData,
-                         score: float) -> str:
-    """
-    Uses benchmark request to get the ranks.
-
-    Don't include this in the calculation map.
-    """
-    return ""
 
 def getCalculationMap() -> dict[str, FunctionType]:
     return {"vt-energy": _voltaicBenchmarkOverallRankCalculate, "basic": _basicRankCalculate}

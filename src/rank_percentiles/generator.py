@@ -26,7 +26,7 @@ class RankPercentileGenerator:
             for difficulty in benchmark.difficulties:
                 self.getRankCounts(False, benchmark.benchmarkName, difficulty.difficultyName)
 
-    def getRankCounts(self, forceCache: bool = False, filterBenchmark: str = "", filterDifficulty: str = "") -> dict[str, dict[str, dict[str, int]]]:
+    def getRankCounts(self, forceCache: bool = False, filterBenchmark: str = "", filterDifficulty: str = "") -> RankCount:
         """
         returns the percentiles for ALL benchmarks in the benchmarks.json file
         in the format {name: {difficulty: RankPercentiles}}
@@ -42,11 +42,9 @@ class RankPercentileGenerator:
                 if filterBenchmark in benchmark.benchmarkName and filterDifficulty in difficulty.difficultyName:
                     result.setdefault(benchmark.benchmarkName, {})[difficulty.difficultyName] = self._getRankCount(difficulty, benchmark, forceCache)
 
-        #self._logRankCounts(result)
-
         return result
 
-    def _getRankCount(self, difficulty: EvxlDifficulty, evxl_data: EvxlBenchmark, forceCache: bool = False) -> dict[str, int]:
+    def _getRankCount(self, difficulty: EvxlDifficulty, evxl_data: EvxlBenchmark, forceCache: bool = False) -> dict[str, float]:
         """returns the percentiles for one benchmark and it's difficulty"""
         # read from json the map of each scenario name in the benchmarks to the scenario id 
         log("Getting rank percentiles with benchmark=" + evxl_data.benchmarkName 
@@ -157,15 +155,13 @@ class RankPercentileGenerator:
         log("Created the map of all players to their ranks! Counting up the map...")
 
         # then count up the numbers of each rank in that map.
-        rankCount: dict[str, int] = {}
-        rankedInDifficulty: int = 0
+        rankCount: dict[str, float] = {}
 
         for steamId in rankMap.keys():
             for rank in fullData.difficulty.rankColors.keys():
                 rankCount.setdefault(rank, 0)
                 if(rankMap[steamId] == rank):
                     rankCount[rank] += 1
-                rankedInDifficulty += 1
 
         log("Caching rank count!")
         self.savedRankCount.data.setdefault(evxl_data.benchmarkName, {})[difficulty.difficultyName] = rankCount
