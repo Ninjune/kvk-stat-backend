@@ -3,7 +3,7 @@ info:
   title: Kovaaks API
   version: 1.0.0
 servers:
-  - url: https://ninjune.dev/kvk-apii
+  - url: https://ninjune.dev/kvk-api
     description: API
 components:
   schemas:

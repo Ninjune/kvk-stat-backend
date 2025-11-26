@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from rank_percentiles.generator import RankPercentileGenerator
 #import plotly.express as px
 
@@ -22,7 +22,7 @@ def rankPercentiles():
 
 @app.route("/")
 def index():
-    return "/rank-percentiles -- Returns rank counts"
+    return send_from_directory("../data/static", "redoc-static.html")
 
 if __name__ == '__main__':
     app.run(port=80)
