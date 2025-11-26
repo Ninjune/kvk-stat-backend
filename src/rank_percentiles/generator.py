@@ -1,9 +1,10 @@
 import json
+from time import sleep
 from api.benchmark_data import PercentileData
 from api.models.extra_models import CachedData, FullBenchmarkData
 from api.models.kvk_models import *
 from api.models.evxl_models import *
-from util import log
+from util import Status, log
 from rank_percentiles.calculation import getBenchmarkRank
 from constants import *
 
@@ -59,7 +60,14 @@ class RankPercentileGenerator:
             kvk_benchmark_data = self.percentileData.apiClient.parse_kvk_benchmarks_from_json(self.savedBenchmarkMap.data[str(kvk_benchmark_id)])
         else:
             log("Downloading kvk benchmark!")
-            kvk_benchmark_data = self.percentileData.apiClient.benchmarks(kvk_benchmark_id, STEAM_ID)
+            try:
+                kvk_benchmark_data = self.percentileData.apiClient.benchmarks(kvk_benchmark_id, STEAM_ID)
+            except Exception as e:
+                log(f"Sleeping for 60s! Got exception from downloading benchmark: {e}", Status.WARNING)
+                sleep(60)
+                self._getRankCount(difficulty, evxl_data)
+                return {}
+
             self.savedBenchmarkMap.data[str(kvk_benchmark_id)] = asdict(kvk_benchmark_data)
             self.savedBenchmarkMap.save([str(kvk_benchmark_id)])
 

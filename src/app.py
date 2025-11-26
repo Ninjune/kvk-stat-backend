@@ -1,6 +1,5 @@
-from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 from rank_percentiles.generator import RankPercentileGenerator
-#import plotly.express as px
 
 app = Flask(__name__)
 app.json.sort_keys = False  # pyright: ignore[reportAttributeAccessIssue]
@@ -26,4 +25,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(port=80)
-    #res = generator.getRankCounts()

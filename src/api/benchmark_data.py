@@ -1,7 +1,8 @@
+from time import sleep
 from api.kovaaker import KovaakerClient
 from api.models.extra_models import CachedData, FullBenchmarkData
 from api.models.kvk_models import BenchmarkCategory, BenchmarkScenario
-from util import log
+from util import Status, log
 from constants import *
 type ScenScoreMap=dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]
 
@@ -42,13 +43,20 @@ class PercentileData:
                 if(scen_found is not None and self.scenSteamIdScoreMap.shouldUseCache(path)):
                     return
 
+                try:
+                    data = self.apiClient.scenario_leaderboard(
+                        leaderboardId,
+                        ["steamId", "score"],
+                        True)
+                except Exception as e:
+                    log(f"Sleeping for 60s then repeating call! Got exception from downloading benchmark: {e}", Status.WARNING)
+                    sleep(60)
+                    self.download_leaderboard_scores(bmd, subcategory, scen, leaderboardId)
+                    return
+
                 self.scenSteamIdScoreMap.data \
                     .setdefault(bmd.evxl_benchmark.benchmarkName, {}) \
                     .setdefault(bmd.difficulty.difficultyName, {}) \
                     .setdefault(subcategory, {}) \
-                    .setdefault(scen, self.apiClient.scenario_leaderboard(
-                        leaderboardId,
-                        ["steamId", "score"],
-                        True)
-                    )
+                    .setdefault(scen, data)
                 self.scenSteamIdScoreMap.save(path)

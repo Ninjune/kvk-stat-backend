@@ -8,4 +8,4 @@ if use_flask:
     os.execvp("python", ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=80"])
 else:
     print("Starting Gunicorn production server...")
-    os.execvp("gunicorn", ["gunicorn", "-b", "0.0.0.0:80", "--chdir", "src", "-w", "4", "app:app"])
+    os.execvp("gunicorn", ["gunicorn", "-b", "0.0.0.0:80", "--chdir", "src", "app:app"])
