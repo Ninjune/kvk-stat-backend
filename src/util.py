@@ -2,6 +2,7 @@ import enum
 from time import localtime
 from datetime import datetime
 from api.models.extra_models import SaveData
+from constants import LOG_PATH
 
 class Status(enum.Enum):
     OK = "OK",
@@ -9,7 +10,7 @@ class Status(enum.Enum):
     WARNING = "Warning"
 
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-log_path = f"logs/log_{timestamp}.txt"
+log_path = LOG_PATH + f"{timestamp}.txt"
 log_data = SaveData[str](log_path, "", False)
 
 def log(message: str, status: Status = Status.OK):
