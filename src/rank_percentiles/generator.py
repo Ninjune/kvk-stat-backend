@@ -8,7 +8,7 @@ from util import Status, log
 from rank_percentiles.calculation import getBenchmarkRank
 from constants import *
 
-class RankCount(dict[str, dict[str, dict[str, int]]]): pass
+class RankCount(dict[str, dict[str, dict[str, float]]]): pass
 
 class RankPercentileGenerator:
     """Very resource heavy, should only be created once"""
