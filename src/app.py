@@ -1,7 +1,10 @@
 from threading import Thread
 from time import sleep
 from flask import Flask, jsonify, request, send_from_directory
-from rank_percentiles.generator import RankPercentileGenerator
+from graph import gen_graphs
+from rank_percentiles.generator import RankCount, RankPercentileGenerator
+from util import log
+
 
 app = Flask(__name__)
 app.json.sort_keys = False  # pyright: ignore[reportAttributeAccessIssue]
@@ -28,9 +31,10 @@ def index():
 def update_cache():
     while True:
         try:
-            print("Updating rank data in background...")
+            log("Updating rank data in background...")
             generator.updateCache()
-            print("Rank data updated!")
+            gen_graphs(RankCount(generator.getRankCounts(False)))
+            log("Rank data updated!")
         except Exception as e:
             print(f"Background update failed: {e}")
         sleep(24*3600)  # Update every hour

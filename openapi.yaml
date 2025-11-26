@@ -26,6 +26,7 @@ paths:
   /rank-count:
     get:
       summary: Get the Kovaaks benchmark rank counts.
+      description: Updates the cache daily.
       parameters:
         - name: benchmark
           description: The benchmark filter to use.

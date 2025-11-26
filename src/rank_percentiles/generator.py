@@ -42,7 +42,7 @@ class RankPercentileGenerator:
                 if filterBenchmark in benchmark.benchmarkName and filterDifficulty in difficulty.difficultyName:
                     result.setdefault(benchmark.benchmarkName, {})[difficulty.difficultyName] = self._getRankCount(difficulty, benchmark, forceCache)
 
-        self._logRankCounts(result)
+        #self._logRankCounts(result)
 
         return result
 

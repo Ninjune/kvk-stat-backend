@@ -14,3 +14,4 @@ plotly==6.4.0
 pandas
 msgpack
 gunicorn
+kaleido
