@@ -2,7 +2,9 @@ from pathlib import Path
 import plotly.graph_objects as go
 from rank_percentiles.generator import RankCount
 from util import log
+import plotly.io as pio
 
+pio.get_chrome()  # pyright: ignore[reportUnknownMemberType, reportAttributeAccessIssue]
 
 def gen_graphs(data: RankCount):
     for benchmark_name, difficulties in data.items():

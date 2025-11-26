@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Kovaaks API
+  title: Kovaaks Unofficial Stat API
   version: 1.0.0
 servers:
   - url: https://ninjune.dev/kvk-api

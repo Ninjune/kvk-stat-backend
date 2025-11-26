@@ -1,17 +1,17 @@
 # Kovaaks stat tracker
 
 
-```
+```YAML
 services:
   kvk-stat-backend:
-    build: ./kvk-stat-backend
-    network_mode: host
+    container_name: kvk-stat-backend
+    image: ghcr.io/ninjune/kvk-stat-backend:latest
     stop_grace_period: 0.5s
     environment:
       - TZ=America/Chicago
     volumes:
-      - ./kvk-stat-backend:/app
+      - ./logs:/app/logs
+      - ./data/cached:/app/data/cached
     ports:
-      - 80:80
-      - 443:443
+      - 8030:80
 ```
