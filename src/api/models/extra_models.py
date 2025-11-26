@@ -2,6 +2,8 @@ from dataclasses import dataclass
 import json
 import msgpack
 import time
+import tempfile
+import os
 from typing import Generic, TypeVar, override
 from api.models.evxl_models import EvxlBenchmark, EvxlDifficulty
 from api.models.kvk_models import Benchmark
@@ -31,14 +33,27 @@ class SaveData(Generic[T]):
     def save(self):
         try:
             data: bytes|str|None = None
+            mode = 'wb' if self.json else 'w'
 
             if(self.json):
                 data = msgpack.packb(self.data)
             else:
                 data = str(self.data)
 
-            with open(self.path, "w") as f:
-                f.write(str(data))
+            dir_name = os.path.dirname(self.path) or '.'
+            os.makedirs(dir_name, exist_ok=True)
+            
+            with tempfile.NamedTemporaryFile(mode=mode, dir=dir_name, delete=False) as tmp_file:
+                tmp_path = tmp_file.name
+                if self.json:
+                    tmp_file.write(data)
+                else:
+                    tmp_file.write(data)
+            
+            os.replace(tmp_path, self.path)
+
+            with open(self.path, mode) as f:
+                f.write(data)
 
         except FileNotFoundError:
             print("Unable to save data!")
@@ -50,7 +65,6 @@ class SaveData(Generic[T]):
             self.data = msgpack.unpackb(data_bytes, raw=False)
         except FileNotFoundError:
             pass # use default
-
 
 class CachedData(SaveData[T]):
     def __init__(self, path: str, cacheInterval: int, default: T = None, json: bool = True):

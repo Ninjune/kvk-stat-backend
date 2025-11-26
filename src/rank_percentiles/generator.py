@@ -150,7 +150,7 @@ class RankPercentileGenerator:
                 rankedInDifficulty += 1
 
         log("Caching rank count!")
-        self.savedRankCount.data[evxl_data.benchmarkName][difficulty.difficultyName] = rankCount
+        self.savedRankCount.data.setdefault(evxl_data.benchmarkName, {})[difficulty.difficultyName] = rankCount
         self.savedRankCount.save([evxl_data.benchmarkName, difficulty.difficultyName])
 
         return rankCount
