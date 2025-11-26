@@ -1,10 +1,10 @@
-EVXL_BENCHMARKS_PATH = "data/static/benchmarks.json"
+EVXL_BENCHMARKS_PATH = "../data/static/benchmarks.json"
 
-META_FILE_PATH = "data/cached/meta.json"
-PERCENTILES_PATH = "data/cached/rank_percentiles.json"
-SCEN_SCORE_MAP_PATH = "data/cached/scenario_score_map.json"
-RANK_COUNT_MAP_PATH = "data/cached/rank_count_map.json"
-KVK_BENCHMARK_MAP_PATH = "data/cached/kvk_benchmark_map.json"
+META_FILE_PATH = "../data/cached/meta.json"
+PERCENTILES_PATH = "../data/cached/rank_percentiles.json"
+SCEN_SCORE_MAP_PATH = "../data/cached/scenario_score_map.json"
+RANK_COUNT_MAP_PATH = "../data/cached/rank_count_map.json"
+KVK_BENCHMARK_MAP_PATH = "../data/cached/kvk_benchmark_map.json"
 
 STEAM_ID = 76561198157599986
 
