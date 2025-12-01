@@ -15,4 +15,3 @@ pandas
 msgpack
 gunicorn
 kaleido
-pyimgur

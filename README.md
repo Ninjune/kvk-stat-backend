@@ -1,6 +1,48 @@
 # Kovaaks stat tracker
 
+## About
 
+This is a server that caches and provides an api to
+the count of ranks for Kovaaks benchmarks. Every time the cache is generated,
+set to 1 day currently, it will create graphs of the counts, cumulative counts,
+and percentiles for the ranks (see https://ninjune.dev/rank-percentiles/). The API
+is hosted at https://ninjune.dev/kvk-api.
+
+## Self Hosting
+
+It is suggested to host with docker b/c I have not tested without. \
+probably run:
+```Bash
+pip install --no-cache-dir -r requirements.txt
+python entrypoint.py
+```
+to run without docker.
+
+Uses:
+- flask
+- msgpack (json->bytes)
+- gunicorn (for prod)
+- plotly
+- kaleido
+
+### Compose files:
+Local version:
+```YAML
+services:
+  kvk-stat-backend:
+    build: ./kvk-stat-backend
+    stop_grace_period: 0.5s
+    environment:
+      - TZ=America/Chicago
+      - USE_FLASK=true
+    volumes:
+      - ./kvk-stat-backend:/app
+    ports:
+      - 80:80
+```
+
+
+Hosted version:
 ```YAML
 services:
   kvk-stat-backend:
