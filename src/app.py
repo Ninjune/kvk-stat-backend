@@ -38,7 +38,7 @@ def update_cache():
         except Exception as e:
             print(f"Background update failed: {e}")
         sleep(24*3600)  # Update every hour
+        update_cache()
 
-if __name__ != '__main__':
-    updater_thread = Thread(target=update_cache, daemon=True)
-    updater_thread.start()
+updater_thread = Thread(target=update_cache, daemon=True)
+updater_thread.start()
