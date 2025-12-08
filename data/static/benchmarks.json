@@ -878,5 +878,95 @@
                 ]
             }
         ]
+    },
+    {
+        "benchmarkName": "Jade Palace Ground",
+        "rankCalculation": "jade-palace-ground",
+        "abbreviation": "JP",
+        "color": "#00ff40",
+        "spreadsheetURL": "https://docs.google.com/spreadsheets/d/131tMwNmJY-lJPVdddpOWKY9uajDWWe3I5ym-UzmF0QE/edit?gid=0#gid=0",
+        "dateAdded": "2025-12-04",
+        "difficulties": [
+            {
+                "difficultyName": "Easy",
+                "kovaaksBenchmarkId": 962,
+                "sharecode": "KovaaKsStartingLavenderArmorshard",
+                "rankColors": {
+                    "Diamond": "#B9F2FF",
+                    "Jade": "#85FA85",
+                    "Master": "#cd30c1",
+                    "Grandmaster": "#feeb01",
+                    "Nova": "#6f1d89"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Ground",
+                        "color": "#ffffff",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 6,
+                                "color": "#ff8000"
+                            },
+                            {
+                                "subcategoryName": "Hybrid",
+                                "scenarioCount": 6,
+                                "color": "#ff0080"
+                            },
+                            {
+                                "subcategoryName": "Technique",
+                                "scenarioCount": 6,
+                                "color": "#00ffff"
+                            },
+                            {
+                                "subcategoryName": "Fluidity",
+                                "scenarioCount": 2,
+                                "color": "#400080"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "difficultyName": "Hard",
+                "kovaaksBenchmarkId": 959,
+                "sharecode": "KovaaKsScreamingJumpyBlueberry",
+                "rankColors": {
+                    "Grandmaster": "#feeb01",
+                    "Nova": "#6f1d89",
+                    "Astra": "#c4065b",
+                    "Celestial": "#56e4fe",
+                    "Transcendent": "#faa0fc"
+                },
+                "categories": [
+                    {
+                        "categoryName": "Ground",
+                        "color": "#CCCCCC",
+                        "subcategories": [
+                            {
+                                "subcategoryName": "Reading",
+                                "scenarioCount": 6,
+                                "color": "#ff8000"
+                            },
+                            {
+                                "subcategoryName": "Hybrid",
+                                "scenarioCount": 6,
+                                "color": "#ff0080"
+                            },
+                            {
+                                "subcategoryName": "Technique",
+                                "scenarioCount": 6,
+                                "color": "#00ffff"
+                            },
+                            {
+                                "subcategoryName": "Fluidity",
+                                "scenarioCount": 2,
+                                "color": "#400080"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]

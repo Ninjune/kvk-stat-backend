@@ -1,3 +1,4 @@
+from enum import Enum
 import json
 import statistics
 from types import FunctionType
@@ -5,6 +6,10 @@ from api.benchmark_data import PercentileData
 from api.models.extra_models import FullBenchmarkData
 from util import log
 logging: bool = False
+
+class SubcategoryCalculationType(Enum):
+    MAX = 0,
+    AVERAGE = 1,
 
 def getBenchmarkRank(benchmark: FullBenchmarkData, 
                      percentileData: PercentileData, 
@@ -24,22 +29,28 @@ def getBenchmarkRank(benchmark: FullBenchmarkData,
     else:
         return calc_function(benchmark, percentileData, steamId)
 
+def _jadePalaceRankCalculate(bm: FullBenchmarkData,
+                                          percentileData: PercentileData,
+                                          steamId: int) -> str:
+    return _genericRankCalculate(bm, 
+                                 percentileData, 
+                                 steamId, 
+                                 _scenRankCalculate, 
+                                 statistics.harmonic_mean, 
+                                 SubcategoryCalculationType.AVERAGE
+                                 )
+
 def _voltaicBenchmarkOverallRankCalculate(bm: FullBenchmarkData,
                                           percentileData: PercentileData,
                                           steamId: int) -> str:
-    return _genericRankCalculate(bm, percentileData, steamId, _voltaicScenRankCalculate, statistics.harmonic_mean)
+    return _genericRankCalculate(bm, 
+                                 percentileData, 
+                                 steamId, 
+                                 _scenRankCalculate, 
+                                 statistics.harmonic_mean, 
+                                 SubcategoryCalculationType.MAX
+                                 )
 
-
-def _voltaicScenRankCalculate(threshold: list[int], score: float) -> float:
-    """returns an energy value"""
-    energy = _scenRankCalculate(threshold, score)
-    return energy
-
-def _thresholdEnergy(score: float, i: int, currentThreshold: float, previousThreshold: float) -> float:
-    """returns energy in the range [0, """
-    if(logging):
-        log(json.dumps({"score": score, "i": i, "currentThreshold": currentThreshold, "previousThreshold": previousThreshold}))
-    return i + (score - previousThreshold)/(currentThreshold - previousThreshold)
 
 def _basicRankCalculate(bm: FullBenchmarkData,
                         percentileData: PercentileData,
@@ -52,7 +63,19 @@ def _basicRankCalculate(bm: FullBenchmarkData,
     If any subcategory is unranked, the overall rank will also be unranked.
     """
    
-    return _genericRankCalculate(bm, percentileData, steamId, _scenRankCalculate, min)
+    return _genericRankCalculate(bm, 
+                                 percentileData, 
+                                 steamId, 
+                                 _scenRankCalculate, 
+                                 min,
+                                 SubcategoryCalculationType.MAX
+                                 )
+
+def _thresholdEnergy(score: float, i: int, currentThreshold: float, previousThreshold: float) -> float:
+    """returns energy in the range [0, """
+    if(logging):
+        log(json.dumps({"score": score, "i": i, "currentThreshold": currentThreshold, "previousThreshold": previousThreshold}))
+    return i + (score - previousThreshold)/(currentThreshold - previousThreshold)
 
 def _scenRankCalculate(threshold: list[int], score: float) -> float:
     energy: float = 0;
@@ -90,7 +113,8 @@ def _genericRankCalculate(bm: FullBenchmarkData,
                           percentileData: PercentileData,
                           steamId: int, 
                           calculateEnergyFunction: FunctionType,
-                          calculateAllEnergiesFunction: FunctionType
+                          calculateAllEnergiesFunction: FunctionType,
+                          subcatCalcType: SubcategoryCalculationType
                           ):
     rank = ""
     subcategoryEnergies: list[float] = []
@@ -123,11 +147,18 @@ def _genericRankCalculate(bm: FullBenchmarkData,
                 if(scenScoreData.get(steamId) is None): # other scens in the subcategory should have the player
                     continue
                 newEnergy = calculateEnergyFunction(threshold, scenScoreData[steamId])
+
                 if(bm.evxl_benchmark.rankCalculation == "vt-energy" and bm.difficulty.difficultyName == "Advanced"):
                     newEnergy = min(newEnergy, (len(threshold)) * 100)
-                if(newEnergy > subcategoryEnergy):
+
+                if(subcatCalcType == SubcategoryCalculationType.MAX and newEnergy > subcategoryEnergy):
                     subcategoryEnergy = newEnergy
+                elif (subcatCalcType == SubcategoryCalculationType.AVERAGE):
+                    subcategoryEnergy += newEnergy
+            if(subcatCalcType == SubcategoryCalculationType.AVERAGE):
+                subcategoryEnergy /= subcategory.scenarioCount
             subcategoryEnergies.append(subcategoryEnergy)
+
 
     energy = calculateAllEnergiesFunction(subcategoryEnergies)
     ranks: list[str] = [rank.name for rank in bm.kvk_benchmark.ranks]
@@ -142,5 +173,5 @@ def _genericRankCalculate(bm: FullBenchmarkData,
     return rank
 
 def getCalculationMap() -> dict[str, FunctionType]:
-    return {"vt-energy": _voltaicBenchmarkOverallRankCalculate, "basic": _basicRankCalculate}
+    return {"vt-energy": _voltaicBenchmarkOverallRankCalculate, "basic": _basicRankCalculate, "jade-palace-ground": _jadePalaceRankCalculate}
 
