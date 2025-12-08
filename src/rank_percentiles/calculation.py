@@ -114,7 +114,7 @@ def _genericRankCalculate(bm: FullBenchmarkData,
                           steamId: int, 
                           calculateEnergyFunction: FunctionType,
                           calculateAllEnergiesFunction: FunctionType,
-                          subcatCalcType: SubcategoryCalculationType
+                          avgCountPerSubcategory: int = 1
                           ):
     rank = ""
     subcategoryEnergies: list[float] = []
@@ -123,14 +123,22 @@ def _genericRankCalculate(bm: FullBenchmarkData,
     for category in bm.difficulty.categories:
         currentScenInCategory = 0
         for subcategory in category.subcategories:
-            subcategoryEnergy = 0
+            subcategoryEnergiesForAvg: list[float] = []
 
+            # For some reason, this one tracks differently
             if(bm.evxl_benchmark.benchmarkName == "Voltaic S4" and bm.difficulty.difficultyName == "Novice"):
                 currentScenInCategory = 0
 
+            # Viscose kvk benchmark tracks differently than voltaic
             if("Viscose" in bm.evxl_benchmark.benchmarkName):
                 currentScenInCategory = 0
 
+            # Exception for jade palace ground such that the final category only takes the top scenario energy
+            if("Jade" in bm.evxl_benchmark.benchmarkName and subcategory.subcategoryName == "Fluidity"):
+                avgCountPerSubcategory = 1
+            # note if jade palace ground adds a section below fluidity, it avgCountPerSubcategory will be wrong
+
+            # Ignore strafe for VT S4
             if(subcategory.subcategoryName == "Strafe"):
                 continue
 
@@ -151,12 +159,17 @@ def _genericRankCalculate(bm: FullBenchmarkData,
                 if(bm.evxl_benchmark.rankCalculation == "vt-energy" and bm.difficulty.difficultyName == "Advanced"):
                     newEnergy = min(newEnergy, (len(threshold)) * 100)
 
-                if(subcatCalcType == SubcategoryCalculationType.MAX and newEnergy > subcategoryEnergy):
-                    subcategoryEnergy = newEnergy
-                elif (subcatCalcType == SubcategoryCalculationType.AVERAGE):
-                    subcategoryEnergy += newEnergy
-            if(subcatCalcType == SubcategoryCalculationType.AVERAGE):
-                subcategoryEnergy /= subcategory.scenarioCount
+                subcategoryEnergiesForAvg.append(newEnergy)
+
+            subcategoryEnergiesForAvg.sort(reverse=True)
+            sum: float = 0
+
+            assert(len(subcategoryEnergiesForAvg) >= avgCountPerSubcategory)
+
+            for i in range(avgCountPerSubcategory):
+                sum += subcategoryEnergiesForAvg[i]
+            subcategoryEnergy = sum/avgCountPerSubcategory
+
             subcategoryEnergies.append(subcategoryEnergy)
 
 

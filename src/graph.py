@@ -2,9 +2,6 @@ from pathlib import Path
 import plotly.graph_objects as go
 from rank_percentiles.generator import RankCount
 from util import log
-import plotly.io as pio
-
-pio.get_chrome()  # pyright: ignore[reportUnknownMemberType, reportAttributeAccessIssue]
 
 COUNT_BAR_PATH = "../data/cached/graphs/count_bar/"
 CUMULATIVE_BAR_PATH = "../data/cached/graphs/cumulative_bar/"

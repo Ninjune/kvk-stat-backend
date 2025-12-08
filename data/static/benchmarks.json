@@ -905,21 +905,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 6,
                                 "color": "#ff8000"
                             },
                             {
                                 "subcategoryName": "Hybrid",
+                                "kvkCategoryName": "Hybrid",
                                 "scenarioCount": 6,
                                 "color": "#ff0080"
                             },
                             {
                                 "subcategoryName": "Technique",
+                                "kvkCategoryName": "Technique",
                                 "scenarioCount": 6,
                                 "color": "#00ffff"
                             },
                             {
                                 "subcategoryName": "Fluidity",
+                                "kvkCategoryName": "PredictionCancelling",
                                 "scenarioCount": 2,
                                 "color": "#400080"
                             }
@@ -945,21 +949,25 @@
                         "subcategories": [
                             {
                                 "subcategoryName": "Reading",
+                                "kvkCategoryName": "Reading",
                                 "scenarioCount": 6,
                                 "color": "#ff8000"
                             },
                             {
                                 "subcategoryName": "Hybrid",
+                                "kvkCategoryName": "Hybrid",
                                 "scenarioCount": 6,
                                 "color": "#ff0080"
                             },
                             {
                                 "subcategoryName": "Technique",
+                                "kvkCategoryName": "Technique",
                                 "scenarioCount": 6,
                                 "color": "#00ffff"
                             },
                             {
                                 "subcategoryName": "Fluidity",
+                                "kvkCategoryName": "PredictionCancelling",
                                 "scenarioCount": 2,
                                 "color": "#400080"
                             }
