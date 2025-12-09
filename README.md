@@ -10,7 +10,7 @@ is hosted at https://ninjune.dev/kvk-api.
 
 ## Self Hosting
 
-It is suggested to host with docker b/c I have not tested without. \
+It is suggested to host with docker b/c I have not tested without.
 
 probably run:
 ```Bash
