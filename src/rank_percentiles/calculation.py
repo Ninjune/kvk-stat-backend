@@ -37,7 +37,7 @@ def _jadePalaceRankCalculate(bm: FullBenchmarkData,
                                  steamId, 
                                  _scenRankCalculate, 
                                  statistics.harmonic_mean, 
-                                 SubcategoryCalculationType.AVERAGE
+                                 3
                                  )
 
 def _voltaicBenchmarkOverallRankCalculate(bm: FullBenchmarkData,
@@ -48,7 +48,7 @@ def _voltaicBenchmarkOverallRankCalculate(bm: FullBenchmarkData,
                                  steamId, 
                                  _scenRankCalculate, 
                                  statistics.harmonic_mean, 
-                                 SubcategoryCalculationType.MAX
+                                 1
                                  )
 
 
@@ -68,7 +68,7 @@ def _basicRankCalculate(bm: FullBenchmarkData,
                                  steamId, 
                                  _scenRankCalculate, 
                                  min,
-                                 SubcategoryCalculationType.MAX
+                                 1
                                  )
 
 def _thresholdEnergy(score: float, i: int, currentThreshold: float, previousThreshold: float) -> float:
