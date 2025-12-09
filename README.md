@@ -11,12 +11,16 @@ is hosted at https://ninjune.dev/kvk-api.
 ## Self Hosting
 
 It is suggested to host with docker b/c I have not tested without. \
+
 probably run:
 ```Bash
 pip install --no-cache-dir -r requirements.txt
-python entrypoint.py
+cd src
+python -m flask --port 5000 --host=127.0.0.1
 ```
 to run without docker.
+
+Note that this will be on port 5000 @ localhost. Host at 0.0.0.0 to allow public access through public ip.
 
 Uses:
 - flask
