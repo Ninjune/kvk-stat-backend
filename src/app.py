@@ -1,6 +1,8 @@
 from threading import Thread
 from time import sleep
+from typing import Any
 from flask import Flask, jsonify, request, send_from_directory
+from api.benchmark_data import ScenScoreMap
 from graph import gen_graphs
 from rank_percentiles.generator import RankCount, RankPercentileGenerator
 from util import log
@@ -28,6 +30,16 @@ def rankPercentiles():
 def index():
     return send_from_directory("../data/static", "redoc-static.html")
 
+def size(map: dict[Any, Any]) -> int:
+    ret: int = 0
+    for map2 in map.keys():
+        if map2 is int:
+            ret += 1
+        else:
+            ret += size(map2)
+    return ret
+
+    
 def update_cache():
     while True:
         try:
@@ -36,7 +48,7 @@ def update_cache():
             gen_graphs(RankCount(generator.getRankCounts(False)))
             log("Rank data updated!")
             log("Current request count: " + str(generator.percentileData.apiClient.request_count))
-            log("Current map size: " + str(generator.percentileData.scenSteamIdScoreMap.__sizeof__()/8))
+            log("Current map size: " + str(size(generator.percentileData.scenSteamIdScoreMap.data)))
         except Exception as e:
             print(f"Background update failed: {e}")
         sleep(24*3600)  # Update every hour
