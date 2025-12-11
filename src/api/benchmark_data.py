@@ -4,8 +4,8 @@ from api.models.extra_models import CachedData, FullBenchmarkData
 from api.models.kvk_models import BenchmarkCategory, BenchmarkScenario
 from util import Status, log
 from constants import *
-type ScenScoreMap=dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]
 
+type ScenScoreMap=dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]
 
 class PercentileData:
     def __init__(self):

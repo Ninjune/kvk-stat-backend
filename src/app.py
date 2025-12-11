@@ -2,7 +2,6 @@ from threading import Thread
 from time import sleep
 from typing import Any
 from flask import Flask, jsonify, request, send_from_directory
-from api.benchmark_data import ScenScoreMap
 from graph import gen_graphs
 from rank_percentiles.generator import RankCount, RankPercentileGenerator
 from util import log
@@ -32,8 +31,8 @@ def index():
 
 def size(map: dict[Any, Any]) -> int:
     ret: int = 0
-    for map2 in map.keys():
-        if map2 is int:
+    for map2 in map.values():
+        if map2 is float:
             ret += 1
         else:
             ret += size(map2)
