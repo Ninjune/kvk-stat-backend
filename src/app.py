@@ -40,5 +40,6 @@ def update_cache():
         sleep(24*3600)  # Update every hour
         update_cache()
 
-updater_thread = Thread(target=update_cache, daemon=True)
-updater_thread.start()
+#updater_thread = Thread(target=update_cache, daemon=True)
+#updater_thread.start()
+update_cache()

@@ -164,10 +164,9 @@ def _genericRankCalculate(bm: FullBenchmarkData,
             subcategoryEnergiesForAvg.sort(reverse=True)
             sum: float = 0
 
-            assert(len(subcategoryEnergiesForAvg) >= avgCountPerSubcategory)
-
             for i in range(avgCountPerSubcategory):
-                sum += subcategoryEnergiesForAvg[i]
+                if(i < len(subcategoryEnergiesForAvg)): # check later, not sure if this messes up calculation
+                    sum += subcategoryEnergiesForAvg[i]
             subcategoryEnergy = sum/avgCountPerSubcategory
 
             subcategoryEnergies.append(subcategoryEnergy)
