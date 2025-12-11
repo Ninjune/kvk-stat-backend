@@ -36,6 +36,7 @@ def update_cache():
             gen_graphs(RankCount(generator.getRankCounts(False)))
             log("Rank data updated!")
             log("Current request count: " + str(generator.percentileData.apiClient.request_count))
+            log("Current map size: " + str(generator.percentileData.scenSteamIdScoreMap.__sizeof__()/8))
         except Exception as e:
             print(f"Background update failed: {e}")
         sleep(24*3600)  # Update every hour
