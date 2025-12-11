@@ -35,6 +35,7 @@ def update_cache():
             generator.updateCache()
             gen_graphs(RankCount(generator.getRankCounts(False)))
             log("Rank data updated!")
+            log("Current request count: " + str(generator.percentileData.apiClient.request_count))
         except Exception as e:
             print(f"Background update failed: {e}")
         sleep(24*3600)  # Update every hour

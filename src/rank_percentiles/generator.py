@@ -164,6 +164,7 @@ class RankPercentileGenerator:
         log("Caching rank count!")
         self.savedRankCount.data.setdefault(evxl_data.benchmarkName, {})[difficulty.difficultyName] = rankCount
         self.savedRankCount.save([evxl_data.benchmarkName, difficulty.difficultyName])
+        log("Current request count: " + str(self.percentileData.apiClient.request_count))
 
         return rankCount
 

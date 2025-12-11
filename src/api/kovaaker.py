@@ -8,10 +8,12 @@ from urllib.parse import quote
 from api.models.kvk_models import *
 from api.endpoints import *
 
+
 class KovaakerClient:
     def __init__(self, username: str|None=None, password: str|None=None):
         self.username = username
         self.password = password
+        self.request_count = 0;
         self.session = requests.Session()
         self._auth = {}
 
@@ -58,6 +60,7 @@ class KovaakerClient:
         
         for offset in (itertools.count() if max_page == -1 else range(max_page)):
             resp = self.session.get(endpoint % (id, start_page + offset, per_page))
+            self.request_count += 1;
             resp.raise_for_status()
 
             if(resp.json()["data"] == []): # (no more results)
@@ -183,6 +186,7 @@ class KovaakerClient:
                    max: int = 100
                    ) -> Benchmark:
         resp = self.session.get(BENCHMARKS % (benchmarkId, steamId, page, max))
+        self.request_count += 1;
         resp.raise_for_status()
         data = resp.json()
 
