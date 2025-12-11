@@ -6,6 +6,7 @@ from util import Status, log
 from constants import *
 type ScenScoreMap=dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]
 
+
 class PercentileData:
     def __init__(self):
         self.apiClient = KovaakerClient()

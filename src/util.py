@@ -23,3 +23,4 @@ def log(message: str, status: Status = Status.OK):
     print(fullMessage, flush=True)
     log_data.data += fullMessage + "\n"
     log_data.save()
+

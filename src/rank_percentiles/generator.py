@@ -5,7 +5,7 @@ from api.models.extra_models import CachedData, FullBenchmarkData
 from api.models.kvk_models import *
 from api.models.evxl_models import *
 from util import Status, log
-from rank_percentiles.calculation import getBenchmarkRank
+from rank_percentiles.calculation import getBenchmarkRank, getCategoryExceptions
 from constants import *
 
 class RankCount(dict[str, dict[str, dict[str, float]]]): pass
@@ -84,7 +84,6 @@ class RankPercentileGenerator:
             category_data = kvk_benchmark_data.categories[category]
             for scenario in category_data.scenarios:
                 scenario_data = category_data.scenarios[scenario]
-                scenario_data.rank_maxes
                 self.percentileData.scenarioIdMap[scenario] = scenario_data.leaderboard_id
 
         fullData: FullBenchmarkData = FullBenchmarkData(
@@ -108,20 +107,19 @@ class RankPercentileGenerator:
 
         # looking for the intersection of the set of the union of all subcategories
         # and set up the scenSteamIdScoreMap
+        # note this loop can be seen twice, once here and once in calculation
         currentScenInCategory: int = 0
         for category in fullData.difficulty.categories:
             currentScenInCategory = 0
             tempSet = set()
             for subcategory in category.subcategories:
-                if("Viscose" in fullData.evxl_benchmark.benchmarkName):
-                    currentScenInCategory = 0
-
-                if(evxl_data.benchmarkName == "Voltaic S4" and fullData.difficulty.difficultyName == "Novice"):
-                    currentScenInCategory = 0
+                currentScenInCategory = getCategoryExceptions(currentScenInCategory, fullData)
 
                 for _ in range(subcategory.scenarioCount):
                     categoryName = subcategory.kvkCategoryName
                     scenDict = fullData.kvk_benchmark.categories[categoryName].scenarios
+                    if(currentScenInCategory > len(scenDict.keys())):
+                        raise Exception("currentScenInCategory is invalid! Check benchmark for category exceptions and add to function.")
                     scenName: str = list(scenDict.keys())[currentScenInCategory]
                     scenData = scenDict[scenName]
                     self.percentileData.download_leaderboard_scores(fullData, subcategory.subcategoryName, scenName, scenData.leaderboard_id)

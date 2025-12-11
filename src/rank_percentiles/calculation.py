@@ -124,14 +124,7 @@ def _genericRankCalculate(bm: FullBenchmarkData,
         currentScenInCategory = 0
         for subcategory in category.subcategories:
             subcategoryEnergiesForAvg: list[float] = []
-
-            # For some reason, this one tracks differently
-            if(bm.evxl_benchmark.benchmarkName == "Voltaic S4" and bm.difficulty.difficultyName == "Novice"):
-                currentScenInCategory = 0
-
-            # Viscose kvk benchmark tracks differently than voltaic
-            if("Viscose" in bm.evxl_benchmark.benchmarkName):
-                currentScenInCategory = 0
+            currentScenInCategory = getCategoryExceptions(currentScenInCategory, bm)
 
             # Exception for jade palace ground such that the final category only takes the top scenario energy
             if("Jade" in bm.evxl_benchmark.benchmarkName and subcategory.subcategoryName == "Fluidity"):
@@ -186,4 +179,18 @@ def _genericRankCalculate(bm: FullBenchmarkData,
 
 def getCalculationMap() -> dict[str, FunctionType]:
     return {"vt-energy": _voltaicBenchmarkOverallRankCalculate, "basic": _basicRankCalculate, "jade-palace-ground": _jadePalaceRankCalculate}
+
+def getCategoryExceptions(currentScenInCategory: int, bm: FullBenchmarkData) -> int:
+    # For some reason, this one tracks differently
+    if(bm.evxl_benchmark.benchmarkName == "Voltaic S4" and bm.difficulty.difficultyName == "Novice"):
+        currentScenInCategory = 0
+
+    # Viscose kvk benchmark tracks differently than voltaic
+    if("Viscose" in bm.evxl_benchmark.benchmarkName):
+        currentScenInCategory = 0
+
+    if("Jade Palace Ground" in bm.evxl_benchmark.benchmarkName):
+        currentScenInCategory = 0
+
+    return currentScenInCategory
 
