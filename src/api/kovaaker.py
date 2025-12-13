@@ -5,7 +5,7 @@ from typing import Any
 from base64 import b64encode
 from urllib.parse import quote
 
-from api.models.kvk_models import *
+from models.kvk_models import *
 from api.endpoints import *
 
 

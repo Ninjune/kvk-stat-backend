@@ -2,9 +2,11 @@ from threading import Thread
 from time import sleep
 from typing import Any
 from flask import Flask, jsonify, request, send_from_directory
+from models.extra_models import JSON
 from constants import IN_DEV
 from graph import gen_graphs
-from rank_percentiles.generator import RankCount, RankPercentileGenerator
+from request.rank_percentiles import RankCount, RankPercentileGenerator
+from request.add_benchmark import addBenchmark
 from util import log
 
 app = Flask(__name__)
@@ -24,6 +26,19 @@ def rankPercentiles():
     res = generator.getRankCounts(True, benchmark, difficulty)
 
     return jsonify(res)
+
+# returns 200 OK or an error
+@app.route("/request-benchmark", methods=["POST"])
+def requestBenchmark():
+    try:
+        data: JSON = request.get_json()
+        addBenchmark(data)
+        
+        return jsonify({"status": "success"}), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
 
 @app.route("/")
 def index():

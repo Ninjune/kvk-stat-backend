@@ -1,6 +1,6 @@
 from pathlib import Path
 import plotly.graph_objects as go
-from rank_percentiles.generator import RankCount
+from request.rank_percentiles import RankCount
 from util import log
 
 COUNT_BAR_PATH = "../data/cached/graphs/count_bar/"

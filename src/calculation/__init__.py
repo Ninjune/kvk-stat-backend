@@ -1,6 +1,6 @@
-from api.benchmark_data import PercentileData
-from api.models.extra_models import FullBenchmarkData
-from rank_percentiles.calculation_methods import calculation_map
+from models.benchmark_data import PercentileData
+from models.extra_models import FullBenchmarkData
+from calculation.methods import calculation_map
 
 def getBenchmarkRank(benchmark: FullBenchmarkData, 
                      percentileData: PercentileData, 

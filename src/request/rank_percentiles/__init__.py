@@ -1,12 +1,12 @@
 import json
 from time import sleep
-from api.benchmark_data import PercentileData
-from api.models.extra_models import CachedData, FullBenchmarkData
-from api.models.kvk_models import *
-from api.models.evxl_models import *
-from rank_percentiles.calculation_methods.generic import getCategoryExceptions
-from util import Status, log
-from rank_percentiles.calculation import getBenchmarkRank
+from models.benchmark_data import PercentileData
+from models.extra_models import FullBenchmarkData
+from models.kvk_models import *
+from models.evxl_models import *
+from calculation.generic import getCategoryExceptions
+from util import Status, log, CachedData
+from calculation import getBenchmarkRank
 from constants import *
 
 class RankCount(dict[str, dict[str, dict[str, float]]]): pass
@@ -114,7 +114,8 @@ class RankPercentileGenerator:
             currentScenInCategory = 0
             tempSet = set()
             for subcategory in category.subcategories:
-                currentScenInCategory = getCategoryExceptions(currentScenInCategory, fullData)
+                overrideVars = getCategoryExceptions(fullData, category, subcategory, currentScenInCategory)
+                currentScenInCategory = overrideVars.current_scen_in_category
 
                 for _ in range(subcategory.scenarioCount):
                     categoryName = subcategory.kvkCategoryName

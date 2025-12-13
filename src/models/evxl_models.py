@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List
 
-# this is AI generated b/c no point to model this data myself
 @dataclass
 class EvxlSubcategory:
     subcategoryName: str

@@ -1,8 +1,8 @@
 from time import sleep
 from api.kovaaker import KovaakerClient
-from api.models.extra_models import CachedData, FullBenchmarkData
-from api.models.kvk_models import BenchmarkCategory, BenchmarkScenario
-from util import Status, log
+from models.extra_models import FullBenchmarkData
+from models.kvk_models import BenchmarkCategory, BenchmarkScenario
+from util import Status, log, CachedData
 from constants import *
 
 type ScenScoreMap=dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]

@@ -1,7 +1,7 @@
 import statistics
-from api.benchmark_data import PercentileData
-from api.models.extra_models import FullBenchmarkData
-from rank_percentiles.calculation_methods.generic import genericRankCalculate, scenRankCalculate
+from models.benchmark_data import PercentileData
+from models.extra_models import FullBenchmarkData
+from calculation.generic import genericRankCalculate, scenRankCalculate
 
 
 def jade_palace_ground(bm: FullBenchmarkData,

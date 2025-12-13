@@ -1,9 +1,19 @@
+from dataclasses import dataclass
 import json
 from types import FunctionType
-from api.benchmark_data import PercentileData
-from api.models.extra_models import FullBenchmarkData
+from models.benchmark_data import PercentileData
+from models.evxl_models import EvxlCategory, EvxlSubcategory
+from models.extra_models import FullBenchmarkData
 from util import log 
 logging: bool = False
+
+# variables that are meant to be overriden based on specific rules for subcategories/benchmarks
+@dataclass
+class SubcategoryOverrideVars:
+    current_scen_in_category: int = 0
+    avg_count_per_subcategory_override: int = -1
+    cap_energy_at_top_rank: bool = False
+    skip_subcategory: bool = False
 
 def genericRankCalculate(bm: FullBenchmarkData,
                           percentileData: PercentileData,
@@ -20,15 +30,14 @@ def genericRankCalculate(bm: FullBenchmarkData,
         currentScenInCategory = 0
         for subcategory in category.subcategories:
             subcategoryEnergiesForAvg: list[float] = []
-            currentScenInCategory = getCategoryExceptions(currentScenInCategory, bm)
+            overrideVars = getCategoryExceptions(bm, category, subcategory, currentScenInCategory)
+            currentScenInCategory = overrideVars.current_scen_in_category
 
-            # Exception for jade palace ground such that the final category only takes the top scenario energy
-            if("Jade" in bm.evxl_benchmark.benchmarkName and subcategory.subcategoryName == "Fluidity"):
-                avgCountPerSubcategory = 1
-            # note if jade palace ground adds a section below fluidity, it avgCountPerSubcategory will be wrong
+            avgCount = avgCountPerSubcategory
+            if(overrideVars.avg_count_per_subcategory_override != -1):
+                avgCount = overrideVars.avg_count_per_subcategory_override
 
-            # Ignore strafe for VT S4
-            if(subcategory.subcategoryName == "Strafe"):
+            if(overrideVars.skip_subcategory):
                 continue
 
             for _ in range(subcategory.scenarioCount):
@@ -36,7 +45,6 @@ def genericRankCalculate(bm: FullBenchmarkData,
                 scenName: str = list(bm.kvk_benchmark.categories[categoryName].scenarios.keys())[currentScenInCategory]
                 currentScenInCategory += 1
                 threshold = percentileData.thresholdMap[(bm.evxl_benchmark.benchmarkName, bm.difficulty.difficultyName, scenName)]
-                #log(scenName + " " + subcategory.subcategoryName)
                 scenScoreData = (percentileData.scenSteamIdScoreMap.data[bm.evxl_benchmark.benchmarkName]
                             [bm.difficulty.difficultyName]
                             [subcategory.subcategoryName]
@@ -53,10 +61,10 @@ def genericRankCalculate(bm: FullBenchmarkData,
             subcategoryEnergiesForAvg.sort(reverse=True)
             sum: float = 0
 
-            for i in range(avgCountPerSubcategory):
-                if(i < len(subcategoryEnergiesForAvg)): # check later, not sure if this messes up calculation
+            for i in range(avgCount):
+                if(i < len(subcategoryEnergiesForAvg)):
                     sum += subcategoryEnergiesForAvg[i]
-            subcategoryEnergy = sum/avgCountPerSubcategory
+            subcategoryEnergy = sum/avgCount
 
             subcategoryEnergies.append(subcategoryEnergy)
 
@@ -112,16 +120,29 @@ def _thresholdEnergy(score: float, i: int, currentThreshold: float, previousThre
     return i + (score - previousThreshold)/(currentThreshold - previousThreshold)
 
 
-def getCategoryExceptions(currentScenInCategory: int, bm: FullBenchmarkData) -> int:
-    # For some reason, this one tracks differently
-    if(bm.evxl_benchmark.benchmarkName == "Voltaic S4" and bm.difficulty.difficultyName == "Novice"):
-        currentScenInCategory = 0
+def getCategoryExceptions(bm: FullBenchmarkData,
+                          category: EvxlCategory,
+                          subcategory: EvxlSubcategory, 
+                          currentScenInCategory: int
+                          ) -> SubcategoryOverrideVars:
+    ret: SubcategoryOverrideVars = SubcategoryOverrideVars()
+    ret.current_scen_in_category = currentScenInCategory
 
-    # Viscose kvk benchmark tracks differently than voltaic
+    if(bm.evxl_benchmark.benchmarkName == "Voltaic S4" and bm.difficulty.difficultyName == "Novice"):
+        ret.current_scen_in_category = 0
+
     if("Viscose" in bm.evxl_benchmark.benchmarkName):
-        currentScenInCategory = 0
+        ret.current_scen_in_category = 0
 
     if("Jade Palace Ground" in bm.evxl_benchmark.benchmarkName):
-        currentScenInCategory = 0
+        ret.current_scen_in_category = 0
 
-    return currentScenInCategory
+    # Exception for jade palace ground such that the final category only takes the top scenario energy
+    if("Jade" in bm.evxl_benchmark.benchmarkName and subcategory.subcategoryName == "Fluidity"):
+        ret.avg_count_per_subcategory_override = 1
+
+    # Ignore strafe for VT S4
+    if(subcategory.subcategoryName == "Strafe"):
+        ret.skip_subcategory = True
+
+    return ret

@@ -1,7 +1,6 @@
 from dataclasses import asdict, dataclass
 from enum import Enum
 from datetime import datetime
-from typing import Any
 
 type link = str
 
