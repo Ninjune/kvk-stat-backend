@@ -2,10 +2,10 @@ from threading import Thread
 from time import sleep
 from typing import Any
 from flask import Flask, jsonify, request, send_from_directory
+from constants import IN_DEV
 from graph import gen_graphs
 from rank_percentiles.generator import RankCount, RankPercentileGenerator
 from util import log
-
 
 app = Flask(__name__)
 app.json.sort_keys = False  # pyright: ignore[reportAttributeAccessIssue]
@@ -42,12 +42,12 @@ def size(map: dict[Any, Any]) -> int:
 def update_cache():
     while True:
         try:
-            log("Updating rank data in background...")
+            log("Updating rank data cache in background...")
             generator.updateCache()
-            gen_graphs(RankCount(generator.getRankCounts(False)))
-            log("Rank data updated!")
+            if(not IN_DEV):
+                gen_graphs(RankCount(generator.getRankCounts(False)))
+            log("Cached rank data updated!")
             log("Current request count: " + str(generator.percentileData.apiClient.request_count))
-            log("Current map size: " + str(size(generator.percentileData.scenSteamIdScoreMap.data)))
         except Exception as e:
             print(f"Background update failed: {e}")
         sleep(24*3600)  # Update every hour

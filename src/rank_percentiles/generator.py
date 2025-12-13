@@ -4,8 +4,9 @@ from api.benchmark_data import PercentileData
 from api.models.extra_models import CachedData, FullBenchmarkData
 from api.models.kvk_models import *
 from api.models.evxl_models import *
+from rank_percentiles.calculation_methods.generic import getCategoryExceptions
 from util import Status, log
-from rank_percentiles.calculation import getBenchmarkRank, getCategoryExceptions
+from rank_percentiles.calculation import getBenchmarkRank
 from constants import *
 
 class RankCount(dict[str, dict[str, dict[str, float]]]): pass
@@ -19,6 +20,7 @@ class RankPercentileGenerator:
         self.percentileData = PercentileData()
 
     def updateCache(self):
+        log("Updating cache!")
         with open(EVXL_BENCHMARKS_PATH , "r") as f:
             evxl_benchmark_data = parse_benchmarks_from_json(json.load(f))
 
@@ -31,7 +33,7 @@ class RankPercentileGenerator:
         returns the percentiles for ALL benchmarks in the benchmarks.json file
         in the format {name: {difficulty: RankPercentiles}}
         """
-        log("Starting to download all rank percentiles!")
+        log("Starting to download all rank percentiles!", Status.DEBUG)
         result: RankCount = RankCount()
 
         with open(EVXL_BENCHMARKS_PATH , "r") as f:
@@ -47,17 +49,16 @@ class RankPercentileGenerator:
     def _getRankCount(self, difficulty: EvxlDifficulty, evxl_data: EvxlBenchmark, forceCache: bool = False) -> dict[str, float]:
         """returns the percentiles for one benchmark and it's difficulty"""
         # read from json the map of each scenario name in the benchmarks to the scenario id 
+        if(forceCache or self.savedRankCount.shouldUseCache([evxl_data.benchmarkName, difficulty.difficultyName])):
+            if(forceCache and self.savedRankCount.data.get(evxl_data.benchmarkName, {}).get(difficulty.difficultyName) is None):
+                log("Cache is not loaded but we're forcing cache. Returning {}!", Status.DEBUG)
+                return {}
+            log("Detected valid cache for benchmark! Returning.", Status.DEBUG)
+            return self.savedRankCount.data[evxl_data.benchmarkName][difficulty.difficultyName]
+
         log("Getting rank percentiles with benchmark=" + evxl_data.benchmarkName 
             + " and difficulty=" + difficulty.difficultyName
             )
-
-        if(forceCache or self.savedRankCount.shouldUseCache([evxl_data.benchmarkName, difficulty.difficultyName])):
-            if(forceCache and self.savedRankCount.data.get(evxl_data.benchmarkName, {}).get(difficulty.difficultyName) is None):
-                log("Cache is not loaded but we're forcing cache. Returning {}!")
-                return {}
-            log("Detected valid cache for benchmark! Returning.")
-            return self.savedRankCount.data[evxl_data.benchmarkName][difficulty.difficultyName]
-
         kvk_benchmark_id: int = difficulty.kovaaksBenchmarkId
         kvk_benchmark_data: Benchmark|None = None
 
