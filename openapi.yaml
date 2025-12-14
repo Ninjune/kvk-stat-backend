@@ -19,19 +19,19 @@ components:
               properties:
                 rank:
                   type: int
-    cache-time:
-      type: object
-      properties:
-        intervalS:
-          type: int
-        benchmarks:
+  cache-time:
+    type: object
+    properties:
+      intervalS:
+        type: int
+      benchmarks:
+        type: object
+        benchmarkName:
           type: object
-          benchmarkName:
-            type: object
-            properties:
-              difficultyName:
-                description: The time last checked as seconds since epoch (UTC).
-                type: int
+          properties:
+            difficultyName:
+              description: The time last checked as seconds since epoch (UTC).
+              type: int
 paths:
   /request-benchmark:
     get:
