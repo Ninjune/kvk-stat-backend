@@ -14,11 +14,24 @@ components:
         benchmarkName:
           type: object
           properties:
-            difficulty:
+            difficultyName:
               type: object
               properties:
                 rank:
                   type: int
+    cache-time:
+      type: object
+      properties:
+        intervalS:
+          type: int
+        benchmarks:
+          type: object
+          benchmarkName:
+            type: object
+            properties:
+              difficultyName:
+                description: The time last checked as seconds since epoch (UTC).
+                type: int
 paths:
   /request-benchmark:
     get:
@@ -42,3 +55,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/rank-count"
+  /cache-time:
+    get:
+      summary: Gets the last time each benchmark/difficulty was cached along with the interval.
+      description: If the cached difficulty's cache time is greater than the interval, then it is currently updating.
+      respones:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cache-time"

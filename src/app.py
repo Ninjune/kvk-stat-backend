@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from models.extra_models import JSON
 from constants import IN_DEV
 from graph import gen_graphs
+from request.cache_time import get_cache_time
 from request.rank_percentiles import RankCount, RankPercentileGenerator
 from request.add_benchmark import addBenchmark
 from util import log
@@ -39,6 +40,10 @@ def requestBenchmark():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
+@app.route("/cache-time")
+def cacheTime():
+    res = get_cache_time(generator)
+    return jsonify(res)
 
 @app.route("/")
 def index():
