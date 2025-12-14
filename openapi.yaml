@@ -19,27 +19,28 @@ components:
               properties:
                 rank:
                   type: int
-  cache-time:
-    type: object
-    properties:
-      intervalS:
-        type: int
-      benchmarks:
-        type: object
-        benchmarkName:
+    cache-time:
+      type: object
+      properties:
+        intervalS:
+          type: int
+        benchmarks:
           type: object
-          properties:
-            difficultyName:
-              description: The time last checked as seconds since epoch (UTC).
-              type: int
+          benchmarkName:
+            type: object
+            properties:
+              difficultyName:
+                description: The time last checked as seconds since epoch (UTC).
+                type: int
 paths:
   /request-benchmark:
     get:
-      summary: Request a benchmark from Evxl to be able to count.
+      summary: Request Benchmark
+      description: TBA
   /rank-count:
     get:
-      summary: Get the Kovaaks benchmark rank counts.
-      description: Updates the cache daily.
+      summary: Rank Counts
+      description: Gets the rank counts for benchmarks/difficulties. Updates the cache daily.
       parameters:
         - name: benchmark
           description: The benchmark filter to use.
@@ -57,8 +58,8 @@ paths:
                 $ref: "#/components/schemas/rank-count"
   /cache-time:
     get:
-      summary: Gets the last time each benchmark/difficulty was cached along with the interval.
-      description: If the cached difficulty's cache time is greater than the interval, then it is currently updating.
+      summary: Cache Last Updated Time
+      description: Gets the last time each benchmark/difficulty was cached along with the interval. If the cached difficulty's cache time is greater than the interval, then it is currently updating.
       respones:
         "200":
           content:
