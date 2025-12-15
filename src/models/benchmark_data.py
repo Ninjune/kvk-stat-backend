@@ -33,7 +33,6 @@ class PercentileData:
                 self.thresholdMap[key] = scenarioData.rank_maxes
 
     def download_leaderboard_scores(self, bmd: FullBenchmarkData, subcategory: str, scen: str, leaderboardId: int) -> None:
-                log("Downloading leaderboard for: " + scen)
                 scen_found = (self.scenSteamIdScoreMap.data
                     .get(bmd.evxl_benchmark.benchmarkName, {})
                     .get(bmd.difficulty.difficultyName, {})
@@ -43,21 +42,22 @@ class PercentileData:
                 path: list[str] = [bmd.evxl_benchmark.benchmarkName, bmd.difficulty.difficultyName, subcategory, scen]
                 if(scen_found is not None and self.scenSteamIdScoreMap.shouldUseCache(path)):
                     return
+                log("Downloading leaderboard for: " + scen)
 
                 try:
                     data = self.apiClient.scenario_leaderboard(
                         leaderboardId,
                         ["steamId", "score"],
                         True)
+
+                    self.scenSteamIdScoreMap.data \
+                        .setdefault(bmd.evxl_benchmark.benchmarkName, {}) \
+                        .setdefault(bmd.difficulty.difficultyName, {}) \
+                        .setdefault(subcategory, {}) \
+                        .setdefault(scen, data)
+                    self.scenSteamIdScoreMap.save(path)
                 except Exception as e:
                     log(f"Sleeping for 60s then repeating call! Got exception from downloading benchmark: {e}", Status.WARNING)
                     sleep(60)
                     self.download_leaderboard_scores(bmd, subcategory, scen, leaderboardId)
                     return
-
-                self.scenSteamIdScoreMap.data \
-                    .setdefault(bmd.evxl_benchmark.benchmarkName, {}) \
-                    .setdefault(bmd.difficulty.difficultyName, {}) \
-                    .setdefault(subcategory, {}) \
-                    .setdefault(scen, data)
-                self.scenSteamIdScoreMap.save(path)

@@ -65,7 +65,6 @@ class KovaakerClient:
 
             if(resp.json()["data"] == []): # (no more results)
                 break
-
             result: list[Any] = []
 
             if data_filter == []:

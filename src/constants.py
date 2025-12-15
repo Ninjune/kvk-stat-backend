@@ -1,5 +1,6 @@
 import os
 
+IN_DEV = os.getenv("USE_FLASK", "").lower() in ("true", "1", "yes")
 EVXL_BENCHMARKS_PATH = "../data/static/benchmarks.json"
 
 META_FILE_PATH = "../data/cached/meta.json"
@@ -12,8 +13,6 @@ LOG_PATH = f"../logs/log_"
 
 STEAM_ID = 76561198157599986
 
-RANK_COUNT_CACHE_INTERVAL_SECONDS = 86400
-KVK_BENCHMARK_MAP_INTERVAL_SECONDS = 86400*3 # 3 days
-STEAM_SCEN_SCORE_INTERVAL_SECONDS = 86400
-
-IN_DEV = os.getenv("USE_FLASK", "").lower() in ("true", "1", "yes")
+RANK_COUNT_CACHE_INTERVAL_SECONDS = 86400 if not IN_DEV else 1
+KVK_BENCHMARK_MAP_INTERVAL_SECONDS = 86400*3 if not IN_DEV else 86400*100 # 3 days
+STEAM_SCEN_SCORE_INTERVAL_SECONDS = 86400 if not IN_DEV else 86400*100

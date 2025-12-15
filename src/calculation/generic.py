@@ -41,8 +41,8 @@ def genericRankCalculate(bm: FullBenchmarkData,
                 continue
 
             for _ in range(subcategory.scenarioCount):
-                categoryName = subcategory.kvkCategoryName
-                scenName: str = list(bm.kvk_benchmark.categories[categoryName].scenarios.keys())[currentScenInCategory]
+                kvKCategoryName = subcategory.kvkCategoryName
+                scenName: str = list(bm.kvk_benchmark.categories[kvKCategoryName].scenarios.keys())[currentScenInCategory]
                 currentScenInCategory += 1
                 threshold = percentileData.thresholdMap[(bm.evxl_benchmark.benchmarkName, bm.difficulty.difficultyName, scenName)]
                 scenScoreData = (percentileData.scenSteamIdScoreMap.data[bm.evxl_benchmark.benchmarkName]
@@ -64,10 +64,10 @@ def genericRankCalculate(bm: FullBenchmarkData,
             for i in range(avgCount):
                 if(i < len(subcategoryEnergiesForAvg)):
                     sum += subcategoryEnergiesForAvg[i]
+
             subcategoryEnergy = sum/avgCount
 
             subcategoryEnergies.append(subcategoryEnergy)
-
 
     energy = calculateAllEnergiesFunction(subcategoryEnergies)
     ranks: list[str] = [rank.name for rank in bm.kvk_benchmark.ranks]
