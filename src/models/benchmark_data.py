@@ -5,7 +5,7 @@ from models.kvk_models import BenchmarkCategory, BenchmarkScenario
 from util import Status, log, CachedData
 from constants import *
 
-type ScenScoreMap=dict[str, dict[str, dict[str, dict[str, dict[int, float]]]]]
+type ScenScoreMap=dict[str, dict[int, float]]
 
 class PercentileData:
     def __init__(self):
@@ -32,14 +32,10 @@ class PercentileData:
                 key = (benchmark.evxl_benchmark.benchmarkName, benchmark.difficulty.difficultyName, scenario)
                 self.thresholdMap[key] = scenarioData.rank_maxes
 
-    def download_leaderboard_scores(self, bmd: FullBenchmarkData, subcategory: str, scen: str, leaderboardId: int) -> None:
-                scen_found = (self.scenSteamIdScoreMap.data
-                    .get(bmd.evxl_benchmark.benchmarkName, {})
-                    .get(bmd.difficulty.difficultyName, {})
-                    .get(subcategory, {})
-                    .get(scen))
+    def download_leaderboard_scores(self, bmd: FullBenchmarkData, scen: str, leaderboardId: int) -> None:
+                scen_found = self.scenSteamIdScoreMap.data.get(scen)
 
-                path: list[str] = [bmd.evxl_benchmark.benchmarkName, bmd.difficulty.difficultyName, subcategory, scen]
+                path: list[str] = [scen]
                 if(scen_found is not None and self.scenSteamIdScoreMap.shouldUseCache(path)):
                     return
                 log("Downloading leaderboard for: " + scen)
@@ -50,14 +46,10 @@ class PercentileData:
                         ["steamId", "score"],
                         True)
 
-                    self.scenSteamIdScoreMap.data \
-                        .setdefault(bmd.evxl_benchmark.benchmarkName, {}) \
-                        .setdefault(bmd.difficulty.difficultyName, {}) \
-                        .setdefault(subcategory, {}) \
-                        .setdefault(scen, data)
+                    self.scenSteamIdScoreMap.data[scen] = data
                     self.scenSteamIdScoreMap.save(path)
                 except Exception as e:
                     log(f"Sleeping for 60s then repeating call! Got exception from downloading benchmark: {e}", Status.WARNING)
                     sleep(60)
-                    self.download_leaderboard_scores(bmd, subcategory, scen, leaderboardId)
+                    self.download_leaderboard_scores(bmd, scen, leaderboardId)
                     return

@@ -124,13 +124,8 @@ class RankPercentileGenerator:
                         raise Exception("currentScenInCategory is invalid! Check benchmark for category exceptions and add to function.")
                     scenName: str = list(scenDict.keys())[currentScenInCategory]
                     scenData = scenDict[scenName]
-                    self.percentileData.download_leaderboard_scores(fullData, subcategory.subcategoryName, scenName, scenData.leaderboard_id)
-                    steamIds = (self.percentileData.scenSteamIdScoreMap.data
-                                    [fullData.evxl_benchmark.benchmarkName]
-                                    [fullData.difficulty.difficultyName]
-                                    [subcategory.subcategoryName]
-                                    [scenName].keys()
-                                )
+                    self.percentileData.download_leaderboard_scores(fullData, scenName, scenData.leaderboard_id)
+                    steamIds = self.percentileData.scenSteamIdScoreMap.data[scenName].keys()
                     tempSet = tempSet.union(set(steamIds))
                     currentScenInCategory += 1
                 id_sets.append(tempSet)

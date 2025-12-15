@@ -45,10 +45,7 @@ def genericRankCalculate(bm: FullBenchmarkData,
                 scenName: str = list(bm.kvk_benchmark.categories[kvKCategoryName].scenarios.keys())[currentScenInCategory]
                 currentScenInCategory += 1
                 threshold = percentileData.thresholdMap[(bm.evxl_benchmark.benchmarkName, bm.difficulty.difficultyName, scenName)]
-                scenScoreData = (percentileData.scenSteamIdScoreMap.data[bm.evxl_benchmark.benchmarkName]
-                            [bm.difficulty.difficultyName]
-                            [subcategory.subcategoryName]
-                            [scenName])
+                scenScoreData = percentileData.scenSteamIdScoreMap.data[scenName]
                 if(scenScoreData.get(steamId) is None): # other scens in the subcategory should have the player
                     continue
                 newEnergy = calculateEnergyFunction(threshold, scenScoreData[steamId])
